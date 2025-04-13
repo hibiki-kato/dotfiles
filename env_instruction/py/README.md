@@ -8,7 +8,7 @@ brew install uv
 ### conda
 ```bash
 brew install --cask miniforge
-conda env create -f $HOME/dotfiles/env_instruction/py/conda_base.yml
+conda env update -f $HOME/dotfiles/env_instruction/py/conda_base.yml
 ```
 ### homebrew
 ```bash

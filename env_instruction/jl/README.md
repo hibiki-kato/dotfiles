@@ -18,7 +18,7 @@ $ brew install juliaup
 
 Then, run
 ```sh
-juliaup add <version>
+juliaup add release 
 ```
 to install a specific version of Julia. *e.g.* ```juliaup add 1.10```
 
@@ -47,3 +47,4 @@ $ (@v1.10) pkg> add <packagename>
 
 # Export environment
 
+refer to Project.toml
