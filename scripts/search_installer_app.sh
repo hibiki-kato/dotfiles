@@ -23,8 +23,8 @@ mas list | awk '{print $2}' | sed 's/ /-/g' > installed_mas_apps.txt
 # 7. Brewfile に載っている `brew cask` + `mas` のリストを統合
 cat brew_cask_apps.txt brew_mas_apps.txt | sort > all_brew_apps.txt
 
-# 8. `Applications` にあるけど `.Brewfile` に載っていないアプリを抽出
-comm -23 <(sort installed_apps.txt) <(sort all_brew_apps.txt)
+# 8. `Applications` にあるけど `.Brewfile` に載っていないアプリを抽出して保存
+comm -23 <(sort installed_apps.txt) <(sort all_brew_apps.txt) > "$HOME/dotfiles/src/App_list.txt"
 
 # 9. ファイルを削除
 rm installed_apps.txt brew_cask_apps.txt installed_mas_apps.txt all_brew_apps.txt

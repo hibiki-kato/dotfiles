@@ -1,3 +1,4 @@
 0 1 * * * /opt/homebrew/bin/brew bundle dump --global --force
 0 1 * * * /Users/hibiki/dotfiles/scripts/cron_update.sh
 0 1 * * * /Users/hibiki/dotfiles/scripts/dotfile_update.sh
+0 1 * * * /Users/hibiki/dotfiles/scripts/search_installer_app.sh
