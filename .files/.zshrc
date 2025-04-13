@@ -16,6 +16,8 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+export "PATH=/usr/local/bin:$PATH"
+
 #githubにdockerからssh接続するための設定
 export DOCKER_BUILDKIT=1
 
