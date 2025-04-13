@@ -20,11 +20,30 @@ git clone https://github.com/hibiki-kato/dotfiles.git
 cd dotfiles
 ```
 
-### Run startup.sh
+## Run startup.sh
 ```sh
 zsh ./scripts/setup.sh
 ```
 
-## How to move to a new machine
+## System settings
+Open settings and set as same as previous device.
 
-## How to maintain using cron
+Additionally, run
+```sh
+zsh ./scripts/system_settings.sh
+``` 
+
+## Raycast
+Open System Settings > General > Keyboard > Keyboard Shortcuts > Spotlight >
+
+## Music
+Set equalizer
+
+## Zotero
+Install Zotmoov, Better BibTeX, and Zotero Better Notes.
+
+Follow this [link](https://plaza.umin.ac.jp/shoei05/index.php/2025/01/03/2706/#2_クラウドストレージにはメタ情報のみ、pdfは外部ストレージへ設定する_Zotmoov)
+
+
+
+
