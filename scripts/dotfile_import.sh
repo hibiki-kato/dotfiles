@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Directory containing the dotfiles
 DOTFILES_DIR="$HOME/dotfiles/.files"
 
 # Move each file from the dotfiles directory to the home directory
-for file in "$DOTFILES_DIR"/*; do
+for file in "$DOTFILES_DIR"/.*; do
     # Get the base name of the file
     filename=$(basename "$file")
     
