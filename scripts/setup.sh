@@ -3,6 +3,7 @@
 # import .files
 $HOME/dotfiles/scripts/dotfile_import.sh
 
+source $HOME/.zshrc
 
 # Install brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

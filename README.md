@@ -22,7 +22,7 @@ cd dotfiles
 
 ### Run startup.sh
 ```sh
-./scripts/setup.sh
+zsh ./scripts/setup.sh
 ```
 
 ## How to move to a new machine
