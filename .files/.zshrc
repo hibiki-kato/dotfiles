@@ -34,7 +34,10 @@ export HOMEBREW_CXX=g++
 
 
 # Juliaのthread数を指定
-export JULIA_NUM_THREADS=8
+export JULIA_NUM_THREADS=auto
 
 # Flutterのpath
 export PATH="$PATH:/Users/hibiki/Library/CloudStorage/Dropbox/flutter/bin"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/hibiki/.lmstudio/bin"

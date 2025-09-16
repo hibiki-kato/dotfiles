@@ -3,6 +3,9 @@
 # import .files
 $HOME/dotfiles/scripts/dotfile_import.sh
 
+# import nvim config
+ln -s ~/dotfiles/nvim ~/.config
+
 source $HOME/.zshrc
 
 # Install brew
@@ -17,3 +20,9 @@ brew bundle  --global
 
 # Import cron jobs
 crontab $HOME/dotfiles/src/crontab.txt
+
+# Execute defaults.sh
+$HOME/dotfiles/scripts/defaults.sh
+
+# Create symlinks
+$HOME/dotfiles/scripts/sym_link.sh

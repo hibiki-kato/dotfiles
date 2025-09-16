@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # 1. 除外するデフォルトアプリのリスト
-exclude_apps=("safari" "mail" "calendar" "contacts" "messages" "reminders" "photos" "maps" "siri"  "imovie" "pages" "numbers" "keynote" "notes" "itunes" "facetime" "iwallpaper" "zoom.us" "utilities" "karabiner-eventviewer")
+exclude_apps=("safari" "mail" "calendar" "contacts" "messages" "reminders" "photos" "maps" "siri"  "imovie" "pages" "numbers" "keynote" "notes" "itunes" "facetime" "iwallpaper" "zoom.us" "utilities" "karabiner-eventviewer" "globalprotect")
 
 # 2. `Applications` フォルダ内のアプリ名を取得し、フォーマットを統一（小文字化 & スペースをハイフンに置換）
 ls /Applications | sed 's/\.app$//' | awk '{print tolower($0)}' | sed 's/ /-/g' > installed_apps.txt
@@ -27,5 +27,5 @@ cat brew_cask_apps.txt brew_mas_apps.txt | sort > all_brew_apps.txt
 comm -23 <(sort installed_apps.txt) <(sort all_brew_apps.txt) > "$HOME/dotfiles/src/App_list.txt"
 
 # 9. ファイルを削除
-rm installed_apps.txt brew_cask_apps.txt installed_mas_apps.txt all_brew_apps.txt
+rm installed_apps.txt brew_cask_apps.txt installed_mas_apps.txt all_brew_apps.txt brew_mas_apps.txt
 
