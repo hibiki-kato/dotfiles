@@ -1,5 +1,11 @@
 # dotfiles
+## Install chezmoi
+```sh
+sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply hibiki-kato
+```
 
+
+# Bellow are deprecated instructions. 
 ## MacOS
 
 ### Install command line tools

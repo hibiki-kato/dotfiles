@@ -1,0 +1,10 @@
+{
+    "using Plots": {
+        "prefix": "plots",
+        "body": [
+            "using Plots",
+            "plot(${1:x}, ${2:y}; label=\"${3:series}\")$0"
+        ],
+        "description": "Julia Plots の最小テンプレ"
+    }
+}

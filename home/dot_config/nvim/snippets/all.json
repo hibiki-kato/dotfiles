@@ -1,0 +1,9 @@
+{
+    "todo": {
+        "prefix": "todo",
+        "body": [
+            "TODO($USER): $0"
+        ],
+        "description": "TODO コメント"
+    }
+}

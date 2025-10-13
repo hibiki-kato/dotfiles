@@ -21,6 +21,8 @@ export "PATH=/usr/local/bin:$PATH"
 #githubにdockerからssh接続するための設定
 export DOCKER_BUILDKIT=1
 
+# openmpのスレッド数
+export OMP_NUM_THREADS=10
 #lapackのライブラリ化, リンク作成
 export LDFLAGS="-L/opt/homebrew/opt/lapack/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/lapack/include"
@@ -41,3 +43,7 @@ export PATH="$PATH:/Users/hibiki/Library/CloudStorage/Dropbox/flutter/bin"
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/hibiki/.lmstudio/bin"
+export PATH="$HOME/.elan/bin:$PATH"
+
+# WolframscriptのPath
+export PATH="/Applications/Wolfram.app/Contents/MacOS:$PATH"

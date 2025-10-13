@@ -1,0 +1,16 @@
+{
+    "plt quick": {
+        "prefix": "plt",
+        "body": [
+            "import matplotlib.pyplot as plt",
+            "plt.figure()",
+            "plt.plot(${1:x}, ${2:y})",
+            "plt.xlabel('${3:xlabel}')",
+            "plt.ylabel('${4:ylabel}')",
+            "plt.title('${5:title}')",
+            "plt.grid(True)",
+            "plt.show()$0"
+        ],
+        "description": "matplotlib ワンショット"
+    }
+}
