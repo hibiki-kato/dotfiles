@@ -10,5 +10,4 @@ sudo apt-get install -y \
   gnupg \
   gpg \
   lsb-release \
-  software-properties-common \
-  apt-get-transport-https
+  software-properties-common
