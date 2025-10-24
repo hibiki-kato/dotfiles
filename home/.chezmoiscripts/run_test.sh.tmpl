@@ -2,7 +2,6 @@
 set -euo pipefail
 
 INSTALL_DIR="{{ .chezmoi.sourceDir }}/../install"
-source "$INSTALL_DIR/common/functions.sh"
 
 echo "=== Testing chezmoi scripts on {{ .chezmoi.os }} ==="
 echo "Hostname: {{ .chezmoi.hostname }}"

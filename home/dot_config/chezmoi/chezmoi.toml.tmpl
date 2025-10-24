@@ -1,0 +1,33 @@
+# Managed by chezmoi (template)
+# This file will be written to ~/.config/chezmoi/chezmoi.toml
+
+{{- $system := "desktop" -}}
+{{- if eq .chezmoi.os "linux" -}}
+  {{- /* Auto-detect: server if hostname contains "server", otherwise desktop */ -}}
+  {{- if contains "server" .chezmoi.hostname -}}
+    {{- $system = "server" -}}
+  {{- else -}}
+    {{- $system = "desktop" -}}
+  {{- end -}}
+{{- end -}}
+
+# Global config
+[config]
+# color = true
+# pager = ""
+# umask = "022"
+
+{{- if eq .chezmoi.os "darwin" }}
+
+# macOS: use VS Code as editor
+[edit]
+command = "code"
+{{- end }}
+
+# Bitwarden integration
+[bitwarden]
+unlock = "auto"
+
+# Data available to templates (used by run_once_install.sh.tmpl)
+[data]
+system = "{{ $system }}"

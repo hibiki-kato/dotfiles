@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# このファイルは run_once_install.sh.tmpl に統合済みです
+# 以下は将来の参考用に残した例です
+
+# ========================================
+# 個別スクリプトを include で実行する例
+# ========================================
+# 
+# 特定の条件でのみ特定のスクリプトを実行したい場合:
+#
+# {{- if eq .chezmoi.os "linux" -}}
+#   {{- if eq .chezmoi.osRelease.idLike "debian" -}}
+#     {{- if eq .system "client" -}}
+#       {{- if (stat (printf "%s/install/ubuntu/common/mecab.sh" .chezmoi.sourceDir)).exists -}}
+# {{         include "../install/ubuntu/common/mecab.sh" }}
+#       {{- end -}}
+#     {{- end -}}
+#   {{- end -}}
+# {{- end -}}
+#
+# ========================================
+# macOS で個別に include する例
+# ========================================
+#
+# {{- if eq .chezmoi.os "darwin" -}}
+#   {{- if (stat (printf "%s/install/macos/10-xcode-clt.sh" .chezmoi.sourceDir)).exists -}}
+# {{     include "../install/macos/10-xcode-clt.sh" }}
+#   {{- end -}}
+#   {{- if (stat (printf "%s/install/macos/20-homebrew.sh" .chezmoi.sourceDir)).exists -}}
+# {{     include "../install/macos/20-homebrew.sh" }}
+#   {{- end -}}
+# {{- end -}}
+#
+# ========================================
+# 現在は run_once_install.sh.tmpl で
+# ディレクトリ内の全スクリプトを自動実行
+# ========================================
