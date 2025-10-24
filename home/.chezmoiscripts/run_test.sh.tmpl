@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPTS_DIR="$HOME/.chezmoiscripts"
-source "$SCRIPTS_DIR/common/functions.sh"
+INSTALL_DIR="{{ .chezmoi.sourceDir }}/../install"
+source "$INSTALL_DIR/common/functions.sh"
 
 echo "=== Testing chezmoi scripts on {{ .chezmoi.os }} ==="
 echo "Hostname: {{ .chezmoi.hostname }}"
 echo "Username: {{ .chezmoi.username }}"
-echo "Scripts directory: $SCRIPTS_DIR"
+echo "Install directory: $INSTALL_DIR"
 
 {{- if eq .chezmoi.os "darwin" }}
 echo "OS: macOS ({{ .chezmoi.os }})"

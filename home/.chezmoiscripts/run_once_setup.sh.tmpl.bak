@@ -1,18 +1,29 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPTS_DIR="$HOME/.chezmoiscripts"
-source "$SCRIPTS_DIR/common/functions.sh"
+INSTALL_DIR="{{ .chezmoi.sourceDir }}/../install"
+source "$INSTALL_DIR/common/functions.sh"
 
 echo "=== Starting bootstrap for {{ .chezmoi.os }} ==="
 
 {{- if eq .chezmoi.os "darwin" }}
 # macOS: Xcode CLT → Homebrew → Brewfile
-run_scripts "$SCRIPTS_DIR/darwin" "10" "20" "30"
+run_scripts "$INSTALL_DIR/macos" "10" "20" "30"
 
 {{- else if eq .chezmoi.os "linux" }}
-# Linux: apt update → essentials → neovim
-run_scripts "$SCRIPTS_DIR/linux" "10" "20" "30"
+# Ubuntu: 共通スクリプト実行
+run_scripts "$INSTALL_DIR/ubuntu" "10" "20" "30"
+
+# common → desktop/server 分岐
+run_scripts "$INSTALL_DIR/ubuntu/common" "10" "20" "30"
+
+if is_ubuntu_desktop; then
+  echo "→ Running Ubuntu Desktop specific scripts"
+  run_scripts "$INSTALL_DIR/ubuntu/desktop" "10" "20" "30"
+elif is_ubuntu_server; then
+  echo "→ Running Ubuntu Server specific scripts"
+  run_scripts "$INSTALL_DIR/ubuntu/server" "10" "20" "30"
+fi
 
 {{- else }}
 echo "⚠ Unsupported OS: {{ .chezmoi.os }}"
