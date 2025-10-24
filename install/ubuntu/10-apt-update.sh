@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "Updating apt-get-get repositories..."
+echo "Updating apt-get repositories..."
 
-if command -v apt-get-get >/dev/null 2>&1; then
-  sudo apt-get-get update
-  echo "✓ apt-get-get repositories updated"
+if command -v apt-get >/dev/null 2>&1; then
+  sudo apt-get update
+  echo "✓ apt-get repositories updated"
 else
-  echo "⚠ apt-get-get not found, skipping"
+  echo "⚠ apt-get not found, skipping"
 fi

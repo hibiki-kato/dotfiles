@@ -2,8 +2,8 @@
 set -euo pipefail
 
 # Common prerequisites for Ubuntu installers
-sudo apt-get-get update -y || true
-sudo apt-get-get install -y \
+sudo apt-get update -y || true
+sudo apt-get install -y \
   ca-certificates \
   curl \
   wget \
