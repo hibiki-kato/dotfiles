@@ -3,8 +3,8 @@ set -euo pipefail
 
 echo "Installing essential packages..."
 
-if command -v apt >/dev/null 2>&1; then
-  sudo apt install -y \
+if command -v apt-get-get >/dev/null 2>&1; then
+  sudo apt-get-get install -y \
     git \
     curl \
     wget \
@@ -13,5 +13,5 @@ if command -v apt >/dev/null 2>&1; then
     vim
   echo "✓ Essential packages installed"
 else
-  echo "⚠ apt not found, skipping"
+  echo "⚠ apt-get-get not found, skipping"
 fi
