@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPTS_DIR="$HOME/.chezmoiscripts"
+source "$SCRIPTS_DIR/common/functions.sh"
+
+echo "=== Starting bootstrap for {{ .chezmoi.os }} ==="
+
+{{- if eq .chezmoi.os "darwin" }}
+# macOS: Xcode CLT → Homebrew → Brewfile
+run_scripts "$SCRIPTS_DIR/darwin" "10" "20" "30"
+
+{{- else if eq .chezmoi.os "linux" }}
+# Linux: apt update → essentials → neovim
+run_scripts "$SCRIPTS_DIR/linux" "10" "20" "30"
+
+{{- else }}
+echo "⚠ Unsupported OS: {{ .chezmoi.os }}"
+exit 1
+{{- end }}
+
+# nvim config のシンボリックリンク
+if [[ -d "$HOME/dotfiles/nvim" ]]; then
+  mkdir -p "$HOME/.config"
+  ln -sfn "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
+  echo "✓ nvim config symlinked"
+elif [[ -d "$HOME/.local/share/chezmoi/home/dot_config/nvim" ]]; then
+  # chezmoi manage している場合は不要（chezmoi apply で自動配置される）
+  echo "✓ nvim config managed by chezmoi"
+fi
+
+echo "=== Bootstrap completed for {{ .chezmoi.os }} ==="

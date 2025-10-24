@@ -1,4 +1,5 @@
 #!/bin/zsh
+
 # Move dotfiles to a centralized directory and symlink them from ~
 DOTFILES_DIR="$HOME/dotfiles/.files"
 
