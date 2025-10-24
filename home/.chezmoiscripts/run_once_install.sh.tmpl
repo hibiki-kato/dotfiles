@@ -4,6 +4,7 @@ set -euo pipefail
 echo "=== Starting bootstrap for {{ .chezmoi.os }} ==="
 
 {{- $src := .chezmoi.sourceDir }}
+{{- $install := printf "%s/../install" $src }}
 {{- $system := "desktop" }}
 {{- if hasKey . "system" }}
   {{- $system = .system }}
@@ -28,18 +29,18 @@ run_all() {
 
 {{ if eq .chezmoi.os "darwin" -}}
 # macOS installers
-run_all "{{ $src }}/install/macos"
+run_all "{{ $install }}/macos"
 
 {{ else if eq .chezmoi.os "linux" -}}
 # Ubuntu common prereqs
-run_all "{{ $src }}/install/ubuntu/common"
+run_all "{{ $install }}/ubuntu/common"
 
 if [ "{{ $system }}" = "server" ]; then
   # Ubuntu server
-  run_all "{{ $src }}/install/ubuntu/server"
+  run_all "{{ $install }}/ubuntu/server"
 else
   # Ubuntu desktop
-  run_all "{{ $src }}/install/ubuntu/desktop"
+  run_all "{{ $install }}/ubuntu/desktop"
 fi
 
 {{ else -}}
