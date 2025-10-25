@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+
+{{ if eq .chezmoi.os "darwin" -}}
+S="/bin/zsh"
+{{ else if eq .chezmoi.os "linux" -}}
+command -v zsh >/dev/null 2>&1 || { command -v apt-get >/dev/null 2>&1 && sudo apt-get update -y || true; command -v apt-get >/dev/null 2>&1 && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y zsh || true; }
+S="$(command -v zsh || true)"
+{{ else -}}
+S=""
+{{ end -}}
+
+[[ -n "${S:-}" ]] || exit 0
+
+# Ensure /etc/shells contains zsh path (best-effort; skip if no permission/TTY)
+grep -qx "$S" /etc/shells 2>/dev/null || { [[ -w /etc/shells ]] && echo "$S" >> /etc/shells || { [[ -t 0 && -t 1 ]] && command -v sudo >/dev/null 2>&1 && echo "$S" | sudo tee -a /etc/shells >/dev/null || true; }; }
+
+# Skip if already default
+[[ "${SHELL:-}" == "$S" ]] && exit 0
+
+# Change default shell only when interactive (to avoid blocking chezmoi)
+if [[ -t 0 && -t 1 ]]; then
+  chsh -s "$S" "$USER" || true
+fi

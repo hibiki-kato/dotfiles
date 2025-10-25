@@ -1,9 +1,14 @@
 tap "browsh-org/browsh"
+tap "deskflow/tap"
 tap "krishkrosh/apps"
 brew "libtiff"
 brew "protobuf"
+brew "python@3.14"
 brew "apache-arrow"
 brew "arp-scan"
+brew "icu4c@77"
+brew "node"
+brew "bitwarden-cli"
 brew "chezmoi"
 brew "clang-format"
 brew "cmake"
@@ -12,10 +17,10 @@ brew "daktilo"
 brew "eigen"
 brew "elan-init"
 brew "fribidi"
-brew "icu4c@77"
 brew "harfbuzz"
 brew "tesseract"
 brew "ffmpeg"
+brew "python@3.13"
 brew "fortls"
 brew "mpfr"
 brew "gcc"
@@ -36,7 +41,6 @@ brew "mas"
 brew "neovim"
 brew "ninja"
 brew "nmap"
-brew "node"
 brew "numpy"
 brew "open-mpi"
 brew "poppler"
@@ -55,15 +59,18 @@ cask "adobe-acrobat-reader"
 cask "adobe-creative-cloud"
 cask "appcleaner"
 cask "audacity"
+cask "balenaetcher"
 cask "blackhole-2ch"
 cask "brave-browser"
 cask "chatgpt"
 cask "cisdem-data-recovery"
+cask "deskflow"
 cask "discord"
 cask "docker-desktop"
 cask "dropbox"
 cask "freedom"
 cask "garmin-express"
+cask "gimp"
 cask "google-drive"
 cask "grammarly-desktop"
 cask "inkscape"
@@ -73,10 +80,12 @@ cask "keyboardcleantool"
 cask "lm-studio"
 cask "microsoft-auto-update"
 cask "microsoft-onenote"
+cask "microsoft-powerpoint"
 cask "miniforge"
 cask "nomachine"
 cask "opera"
 cask "r-app"
+cask "raspberry-pi-imager"
 cask "raycast"
 cask "rstudio"
 cask "rustdesk"
@@ -92,16 +101,15 @@ cask "warp"
 cask "whatsapp"
 cask "xquartz"
 cask "zoom"
-# mas "Amphetamine", id: 937984704
-# mas "Bitwarden", id: 1352778147
-# mas "GarageBand", id: 682658836
-# mas "Goodnotes", id: 1444383602
-# mas "Keynote", id: 409183694
-# mas "LINE", id: 539883307
-# mas "Microsoft Excel", id: 462058435
-# mas "Microsoft PowerPoint", id: 462062816
-# mas "Microsoft Word", id: 462054704
-# mas "MyWallpaper", id: 1552826194
-# mas "ScreenNote", id: 1258500140
-# mas "System Watcher", id: 1269106895
-# mas "VirusBarrier Scanner", id: 1200445649
+mas "Amphetamine", id: 937984704
+mas "Bitwarden", id: 1352778147
+mas "GarageBand", id: 682658836
+mas "Goodnotes", id: 1444383602
+mas "Keynote", id: 409183694
+mas "LINE", id: 539883307
+mas "Microsoft Excel", id: 462058435
+mas "Microsoft Word", id: 462054704
+mas "MyWallpaper", id: 1552826194
+mas "ScreenNote", id: 1258500140
+mas "System Watcher", id: 1269106895
+mas "VirusBarrier Scanner", id: 1200445649

@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "=== Starting driver installation for {{ .chezmoi.os }} ==="
+
+{{- $src := .chezmoi.sourceDir }}
+{{- $driver := printf "%s/../driver" $src }}
+{{- $system := "desktop" }}
+{{- if hasKey . "system" }}
+  {{- $system = .system }}
+{{- else if eq .chezmoi.os "linux" }}
+  {{- if contains "server" .chezmoi.hostname }}
+    {{- $system = "server" }}
+  {{- end }}
+{{- end }}
+
+# Run all *.sh in a directory (lexicographic order: 001-*, 002-*, ...)
+run_all() {
+  local dir="$1"
+  [ -d "$dir" ] || return 0
+  # shellcheck disable=SC2045
+  for f in $(LC_ALL=C ls -1 "$dir"/*.sh 2>/dev/null | sort); do
+    [ -f "$f" ] || continue
+    [ -x "$f" ] || chmod +x "$f" || true
+    echo "→ Running: $(basename "$f")"
+    "$f"
+  done
+}
+
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS drivers (if any)
+run_all "{{ $driver }}/macos"
+
+{{ else if eq .chezmoi.os "linux" -}}
+# Ubuntu common drivers
+run_all "{{ $driver }}/ubuntu/common"
+
+if [ "{{ $system }}" = "server" ]; then
+  # Ubuntu server drivers
+  run_all "{{ $driver }}/ubuntu/server"
+else
+  # Ubuntu desktop drivers
+  run_all "{{ $driver }}/ubuntu/desktop"
+fi
+
+{{ else -}}
+echo "⚠ Unsupported OS: {{ .chezmoi.os }}"
+exit 1
+{{ end -}}
+
+echo "=== Driver installation completed for {{ .chezmoi.os }} ==="

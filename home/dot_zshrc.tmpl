@@ -1,5 +1,9 @@
-#rmを安全化
-alias rm='trash'
+# Common settings (all platforms)
+# Lean/Elan
+export PATH="$HOME/.elan/bin:$PATH"
+
+{{ if eq .chezmoi.os "darwin" -}}
+# === macOS specific settings ===
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -15,35 +19,47 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
 export "PATH=/usr/local/bin:$PATH"
 
-#githubにdockerからssh接続するための設定
-export DOCKER_BUILDKIT=1
-
-# openmpのスレッド数
-export OMP_NUM_THREADS=10
-#lapackのライブラリ化, リンク作成
+# LAPACK (Homebrew)
 export LDFLAGS="-L/opt/homebrew/opt/lapack/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/lapack/include"
 
-# OSの名前(自己設定)
+# OS name
 export OS_NAME=Darwin
 
-#HomebrewのC/C++コンパイラ指定
+# Homebrew C/C++ compiler
 export HOMEBREW_CC=gcc
 export HOMEBREW_CXX=g++
 
+#rmを安全化
+alias rm='trash'
 
-# Juliaのthread数を指定
+# Docker settings
+export DOCKER_BUILDKIT=1
+
+# OpenMP thread count
+export OMP_NUM_THREADS=10
+
+# Julia thread count
 export JULIA_NUM_THREADS=auto
 
-# Flutterのpath
-export PATH="$PATH:/Users/hibiki/Library/CloudStorage/Dropbox/flutter/bin"
+# Flutter path
+export PATH="$PATH:$HOME/Library/CloudStorage/Dropbox/flutter/bin"
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/hibiki/.lmstudio/bin"
-export PATH="$HOME/.elan/bin:$PATH"
+# LM Studio CLI
+export PATH="$PATH:$HOME/.lmstudio/bin"
 
-# WolframscriptのPath
+# Wolfram
 export PATH="/Applications/Wolfram.app/Contents/MacOS:$PATH"
+
+{{ else if eq .chezmoi.os "linux" -}}
+# === Linux specific settings ===
+# OS name
+export OS_NAME=Linux
+alias rm='trash-put'
+
+export PATH="/usr/local/cuda/bin${PATH:+:${PATH}}"
+export LD_LIBRARY_PATH="/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+
+{{ end -}}
