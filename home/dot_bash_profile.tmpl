@@ -1,4 +1,4 @@
-
+{{ if eq .chezmoi.os "darwin" -}}
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/hibiki/miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -17,3 +17,4 @@ unset __conda_setup
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/hibiki/.lmstudio/bin"
+{{ end -}}

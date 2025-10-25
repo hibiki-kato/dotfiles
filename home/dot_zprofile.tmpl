@@ -1,0 +1,4 @@
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS: Homebrew shellenv
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{ end -}}
