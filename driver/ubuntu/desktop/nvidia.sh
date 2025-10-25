@@ -9,7 +9,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Failsafe 1: Check if NVIDIA GPU exists
-if ! lspci | grep -qi nvidia; then
+if ! lspci | grep -i nvidia; then
   echo "No NVIDIA GPU detected; skipping driver installation." >&2
   exit 0
 fi
