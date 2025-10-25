@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Install Dropbox for Ubuntu Desktop via official .deb package
 
-DEB_URL="https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb"
+DEB_URL="https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2025.05.20_amd64.deb"
 DEB_FILE="/tmp/dropbox.deb"
 
 # Download Dropbox .deb
