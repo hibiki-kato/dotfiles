@@ -1,6 +1,8 @@
 # Common settings (all platforms)
 # Lean/Elan
 export PATH="$HOME/.elan/bin:$PATH"
+# Local user binaries (e.g., uv installs here)
+export PATH="$HOME/.local/bin:$PATH"
 
 {{ if eq .chezmoi.os "darwin" -}}
 # === macOS specific settings ===
@@ -55,11 +57,31 @@ export PATH="/Applications/Wolfram.app/Contents/MacOS:$PATH"
 
 {{ else if eq .chezmoi.os "linux" -}}
 # === Linux specific settings ===
+# Miniforge (Conda-forge) initialization
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('$HOME/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "$HOME/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="$HOME/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
 # OS name
 export OS_NAME=Linux
 alias rm='trash-put'
 
 export PATH="/usr/local/cuda/bin${PATH:+:${PATH}}"
 export LD_LIBRARY_PATH="/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+
+# TeX Live (user-local). Prefer stable symlink created by installer
+if [ -d "$HOME/texlive/bin" ]; then
+    export PATH="$HOME/texlive/bin:$PATH"
+fi
 
 {{ end -}}
