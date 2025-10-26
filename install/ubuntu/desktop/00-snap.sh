@@ -10,4 +10,5 @@ sudo snap install \
   surfshark \
   steam \
   discord \
-  spotify
+  spotify \
+  mission-center
