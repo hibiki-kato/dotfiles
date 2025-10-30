@@ -12,7 +12,10 @@ sudo snap install \
   discord \
   spotify \
   mission-center \
-  uv \
+  vlc \
+  gimp \
+  obs-studio \
+  zoom-client \
+  uv
 
-sudo snap install --classic \
-  code
+sudo snap install --classic code
