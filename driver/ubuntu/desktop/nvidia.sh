@@ -1,11 +1,11 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 set -euo pipefail
 
 # Install the recommended NVIDIA proprietary driver for Ubuntu Desktop
 # Non-interactive; suitable for chezmoi bootstrap.
 
 if [[ $EUID -ne 0 ]]; then
-  exec sudo -E bash "$0" "$@"
+  exec sudo -E zsh "$0" "$@"
 fi
 
 # Failsafe 1: Check if NVIDIA GPU exists

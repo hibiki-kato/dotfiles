@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 set -euo pipefail
 
 # C/C++ toolchain for Ubuntu: GCC, Clang/LLVM, OpenMP, OpenMPI, and common build tools

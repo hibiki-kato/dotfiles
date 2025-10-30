@@ -28,3 +28,7 @@ ensure_link "$HOME/Library/Application Support/MobileSync/Backup" \
 
 # chezmoi
 ensure_link "$HOME/chezmoi" "$HOME/.local/share/chezmoi"
+
+# cpp
+sudo ln -sf /opt/homebrew/bin/gcc-15 /usr/local/bin/gcc
+sudo ln -sf /opt/homebrew/bin/g++-15 /usr/local/bin/g++

@@ -1,58 +1,52 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 set -euo pipefail
 
-# Minimal X11 stack for Ubuntu Desktop (no display manager/DE)
-# Installs Xorg server and basic X11 utilities
+# Minimal X11 stack for CRD-only session on Ubuntu Desktop
+# Keep local GNOME on Wayland as default; CRD uses its own Xorg session.
 
-# Skip on WSL (no real X server expected by default)
+# Skip on WSL
 if grep -qiE 'microsoft|wsl' /proc/version 2>/dev/null; then
   exit 0
 fi
 
 sudo apt-get update -y || true
+
+# --- (A) Xorg + 基本ツール（CRDがX11セッション立てるのに必要） ---
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   xorg \
-  xinit \
-  x11-apps \
-  x11-xserver-utils \
   xauth \
+  x11-xserver-utils \
+  x11-apps \
   mesa-utils
 
-# Set Xorg (X11) as default by disabling Wayland in display managers (idempotent)
+# --- (B) 好みのX11対応DEを選ぶ（どちらか片方でOK） ---
+# 1) Cinnamon（推奨：軽すぎずモダン）
+# sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cinnamon-core desktop-base
 
-# GDM3 (GNOME)
-if dpkg -s gdm3 >/dev/null 2>&1 || systemctl status gdm3 >/dev/null 2>&1; then
-  GDM_CONF="/etc/gdm3/custom.conf"
-  sudo mkdir -p /etc/gdm3
-  if [[ -f "$GDM_CONF" && ! -f "$GDM_CONF.bak" ]]; then
-    sudo cp -a "$GDM_CONF" "$GDM_CONF.bak"
-  fi
-  if [[ ! -f "$GDM_CONF" ]]; then
-    echo "[daemon]" | sudo tee "$GDM_CONF" >/dev/null
-  fi
-  grep -q '^\[daemon\]' "$GDM_CONF" 2>/dev/null || echo "[daemon]" | sudo tee -a "$GDM_CONF" >/dev/null
-  if grep -q '^[#[:space:]]*WaylandEnable' "$GDM_CONF" 2>/dev/null; then
-    sudo sed -i 's/^[#[:space:]]*WaylandEnable.*/WaylandEnable=false/' "$GDM_CONF"
-  else
-    echo "WaylandEnable=false" | sudo tee -a "$GDM_CONF" >/dev/null
-  fi
+# 2) KDE Plasma（重めだが機能豊富）を使いたい場合はこちらを代わりに
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y plasma-desktop
+
+# --- (C) CRDセッションをこのDEで起動させる設定 ---
+# Cinnamon の X11 セッション
+# echo 'exec /etc/X11/Xsession /usr/bin/cinnamon-session-cinnamon2d' | sudo tee /etc/chrome-remote-desktop-session >/dev/null
+
+# KDE Plasma の場合は上行の代わりに以下
+echo 'exec /usr/bin/startplasma-x11' | sudo tee /etc/chrome-remote-desktop-session >/dev/null
+
+# パーミッション念のため
+sudo chmod 644 /etc/chrome-remote-desktop-session
+
+# --- (D) 余計なことはしない：Waylandはデフォルトのまま ---
+# ※ gdm3/sddm の Wayland/Xorg 切替は一切触らない
+#   /etc/gdm3/custom.conf の WaylandEnable=false を入れない/消しておく
+if [ -f /etc/gdm3/custom.conf ]; then
+  sudo sed -i '/^[[:space:]]*WaylandEnable[[:space:]]*=/d' /etc/gdm3/custom.conf || true
 fi
 
-# SDDM (KDE)
-if dpkg -s sddm >/dev/null 2>&1 || systemctl status sddm >/dev/null 2>&1; then
-  SDDM_CONF="/etc/sddm.conf"
-  if [[ -f "$SDDM_CONF" && ! -f "$SDDM_CONF.bak" ]]; then
-    sudo cp -a "$SDDM_CONF" "$SDDM_CONF.bak"
-  fi
-  if grep -q '^\[General\]' "$SDDM_CONF" 2>/dev/null; then
-    if grep -q '^[#[:space:]]*DisplayServer' "$SDDM_CONF" 2>/dev/null; then
-      sudo sed -i 's/^[#[:space:]]*DisplayServer.*/DisplayServer=x11/' "$SDDM_CONF"
-    else
-      awk 'BEGIN{printed=0} /^\[General\]/{print;print "DisplayServer=x11"; printed=1; next} {print} END{if(!printed) print "[General]\nDisplayServer=x11"}' "$SDDM_CONF" | sudo tee "$SDDM_CONF.tmp" >/dev/null && sudo mv "$SDDM_CONF.tmp" "$SDDM_CONF"
-    fi
-  else
-    printf "[General]\nDisplayServer=x11\n" | sudo tee -a "$SDDM_CONF" >/dev/null
-  fi
+# --- (E) ユーザーをCRDグループに（未設定なら） ---
+if id -nG "$USER" 2>/dev/null | grep -qv '\bchrome-remote-desktop\b'; then
+  sudo usermod -a -G chrome-remote-desktop "$USER"
+  echo ">>> Re-login needed for chrome-remote-desktop group to take effect."
 fi
 
-# Note: Do not restart display managers here; changes apply on next login/reboot.
+echo "CRD will start an Xorg session with Cinnamon. Local GNOME stays on Wayland."

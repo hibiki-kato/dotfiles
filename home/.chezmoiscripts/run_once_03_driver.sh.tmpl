@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 set -euo pipefail
 
 echo "=== Starting driver installation for {{ .chezmoi.os }} ==="
@@ -42,10 +42,6 @@ else
   # Ubuntu desktop drivers
   run_all "{{ $driver }}/ubuntu/desktop"
 fi
-
-{{ else -}}
-echo "⚠ Unsupported OS: {{ .chezmoi.os }}"
-exit 1
 {{ end -}}
 
 echo "=== Driver installation completed for {{ .chezmoi.os }} ==="

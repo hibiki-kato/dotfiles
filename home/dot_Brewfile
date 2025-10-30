@@ -101,15 +101,3 @@ cask "warp"
 cask "whatsapp"
 cask "xquartz"
 cask "zoom"
-mas "Amphetamine", id: 937984704
-mas "Bitwarden", id: 1352778147
-mas "GarageBand", id: 682658836
-mas "Goodnotes", id: 1444383602
-mas "Keynote", id: 409183694
-mas "LINE", id: 539883307
-mas "Microsoft Excel", id: 462058435
-mas "Microsoft Word", id: 462054704
-mas "MyWallpaper", id: 1552826194
-mas "ScreenNote", id: 1258500140
-mas "System Watcher", id: 1269106895
-mas "VirusBarrier Scanner", id: 1200445649

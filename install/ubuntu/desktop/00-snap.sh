@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 set -euo pipefail
 
 # Install snap packages for Ubuntu Desktop
@@ -11,4 +11,8 @@ sudo snap install \
   steam \
   discord \
   spotify \
-  mission-center
+  mission-center \
+  uv \
+
+sudo snap install --classic \
+  code
