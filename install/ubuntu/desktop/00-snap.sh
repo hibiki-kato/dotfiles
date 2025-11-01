@@ -2,20 +2,49 @@
 set -euo pipefail
 
 # Install snap packages for Ubuntu Desktop
-sudo snap install \
-  zotero-snap \
-  chatgpt-desktop \
-  bitwarden \
-  bw \
-  surfshark \
-  steam \
-  discord \
-  spotify \
-  mission-center \
-  vlc \
-  gimp \
-  obs-studio \
-  zoom-client \
-  uv
+# ensure snap is available
+if ! command -v snap >/dev/null 2>&1; then
+  echo "snap not found; skipping snap installs" >&2
+  return 0 2>/dev/null || exit 0
+fi
 
-sudo snap install --classic code
+packages=(
+  brave
+  zotero-snap
+  chatgpt-desktop
+  bitwarden
+  bw
+  surfshark
+  steam
+  discord
+  spotify
+  mission-center
+  vlc
+  gimp
+  obs-studio
+  zoom-client
+)
+
+for pkg in "${packages[@]}"; do
+  if snap list "$pkg" >/dev/null 2>&1; then
+    echo "snap '$pkg' already installed"
+  else
+    echo "Installing snap '$pkg'..."
+    sudo snap install "$pkg"
+  fi
+done
+
+# classic installs
+classic_packages=(
+  astral-uv
+  code
+)
+
+for pkg in "${classic_packages[@]}"; do
+  if snap list "$pkg" >/dev/null 2>&1; then
+    echo "snap '$pkg' already installed"
+  else
+    echo "Installing snap '$pkg' (classic)..."
+    sudo snap install --classic "$pkg"
+  fi
+done

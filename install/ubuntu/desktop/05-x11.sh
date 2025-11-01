@@ -21,14 +21,14 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
 
 # --- (B) 好みのX11対応DEを選ぶ（どちらか片方でOK） ---
 # 1) Cinnamon（推奨：軽すぎずモダン）
-# sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cinnamon-core desktop-base
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cinnamon-core desktop-base
 
 # 2) KDE Plasma（重めだが機能豊富）を使いたい場合はこちらを代わりに
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y plasma-desktop
 
 # --- (C) CRDセッションをこのDEで起動させる設定 ---
 # Cinnamon の X11 セッション
-# echo 'exec /etc/X11/Xsession /usr/bin/cinnamon-session-cinnamon2d' | sudo tee /etc/chrome-remote-desktop-session >/dev/null
+echo 'exec /etc/X11/Xsession /usr/bin/cinnamon-session-cinnamon2d' | sudo tee /etc/chrome-remote-desktop-session >/dev/null
 
 # KDE Plasma の場合は上行の代わりに以下
 echo 'exec /usr/bin/startplasma-x11' | sudo tee /etc/chrome-remote-desktop-session >/dev/null
@@ -49,4 +49,4 @@ if id -nG "$USER" 2>/dev/null | grep -qv '\bchrome-remote-desktop\b'; then
   echo ">>> Re-login needed for chrome-remote-desktop group to take effect."
 fi
 
-echo "CRD will start an Xorg session with Cinnamon. Local GNOME stays on Wayland."
+echo "CRD will start an Xorg session with KDE. Local GNOME stays on Wayland."

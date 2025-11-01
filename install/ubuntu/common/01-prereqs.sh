@@ -12,9 +12,4 @@ sudo apt-get install -y \
   gpg \
   lsb-release \
   openssh-client \
-  software-properties-common \
-  trash-cli \
-  ibus-mozc
-
-# Restart ibus to apply changes
-ibus restart
+  software-properties-common 
