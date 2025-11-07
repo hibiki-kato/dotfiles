@@ -2,4 +2,6 @@
 [ -r "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/hibiki/.lmstudio/bin"
+{{ else if eq .chezmoi.os "linux" -}}
+setxkbmap -option ctrl:nocaps
 {{ end -}}
