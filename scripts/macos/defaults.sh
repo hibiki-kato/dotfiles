@@ -18,16 +18,13 @@ defaults write com.apple.finder ShowStatusBar -bool true # Show the status bar
 defaults write com.apple.finder ShowItemInfo -bool true # Show item info
 defaults write com.apple.finder CreateDesktop -bool false # Hide desktop icons
 defaults write com.apple.desktopservices DSDontWriteNetworkStores True # Don't create .DS_Store files on network volumes
-
 # Set search scope.
 # This Mac       : `SCev`# Current Folder : `SCcf`# Previous Scope : `SCsp`
 defaults write com.apple.finder FXDefaultSearchScope SCcf
-
 # Set preferred view style.
 # Icon View   : `icnv`# List View   : `Nlsv`# Column View : `clmv`# Cover Flow  : `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle Nlsv
 find . -name '.DS_Store' -type f -ls -delete
-
 # Set default path for new windows.
 # Computer     : `PfCm` # Volume       : `PfVo` # $HOME        : `PfHm`
 # Desktop      : `PfDe` # Documents    : `PfDo` # All My Files : `PfAF` # Other…       : `PfLo`
@@ -39,4 +36,5 @@ defaults write com.apple.Safari IncludeInternalDebugMenu -bool true # Enable the
 defaults write com.apple.Safari IncludeDevelopMenu -bool true # Enable the Develop menu and the Web Inspector
 
 # Mail
-defaults write com.apple.mail DisableInlineAttachmentViewing -bool yes
+defaults write com.apple.mail DisableInlineAttachmentViewing -bool yes # Disable inline attachment viewing
+defaults write com.apple.mail SendFormat Plain # Send emails in plain text format

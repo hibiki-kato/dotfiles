@@ -23,6 +23,7 @@ packages=(
   gimp
   obs-studio
   zoom-client
+  dropboxignore
 )
 
 for pkg in "${packages[@]}"; do
