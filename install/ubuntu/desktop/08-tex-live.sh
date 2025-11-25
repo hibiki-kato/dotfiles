@@ -9,3 +9,5 @@ set -euo pipefail
 # Prerequisites
 sudo apt-get update -y || true
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y texlive-full
+
+sudo apt-get install -y tex-fmt
