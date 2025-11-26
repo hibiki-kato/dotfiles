@@ -24,6 +24,7 @@ packages=(
   obs-studio
   zoom-client
   dropboxignore
+  localsend
 )
 
 for pkg in "${packages[@]}"; do
