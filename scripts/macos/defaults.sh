@@ -38,3 +38,7 @@ defaults write com.apple.Safari IncludeDevelopMenu -bool true # Enable the Devel
 # Mail
 defaults write com.apple.mail DisableInlineAttachmentViewing -bool yes # Disable inline attachment viewing
 defaults write com.apple.mail SendFormat Plain # Send emails in plain text format
+
+# NoTunes
+# defaults delete digital.twisted.noTunes # Reset NoTunes preferences to restore icon
+defaults write digital.twisted.noTunes replacement /Applications/Spotify.app

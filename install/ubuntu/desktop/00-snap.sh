@@ -17,6 +17,7 @@ packages=(
   surfshark
   steam
   discord
+  docker
   spotify
   mission-center
   vlc
