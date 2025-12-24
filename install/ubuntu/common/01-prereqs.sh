@@ -12,4 +12,6 @@ sudo apt-get install -y \
   gpg \
   lsb-release \
   openssh-client \
-  software-properties-common 
+  software-properties-common \
+  flatpak \
+  redshift
