@@ -17,10 +17,13 @@ esac
 MINIFORGE_DIR="$HOME/miniforge3"
 if [[ ! -x "$MINIFORGE_DIR/bin/conda" ]]; then
 	wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-$MF_ARCH.sh -O ~/miniforge.sh
-	zsh ~/miniforge.sh -b -p "$MINIFORGE_DIR"
+	# Use bash to avoid zsh glob pattern issues during installation
+	bash ~/miniforge.sh -b -p "$MINIFORGE_DIR"
 	rm ~/miniforge.sh
-	echo "PATH=$PATH:$HOME/miniforge3/bin" >> .zshrc
-	source .zshrc
+	# Add to .zshrc if not already present
+	if ! grep -q "miniforge3/bin" ~/.zshrc; then
+		echo "export PATH=\"\$HOME/miniforge3/bin:\$PATH\"" >> ~/.zshrc
+	fi
 fi
 
 # Hints (do not modify user shell files here)
