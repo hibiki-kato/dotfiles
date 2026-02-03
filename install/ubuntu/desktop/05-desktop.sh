@@ -24,7 +24,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cinnamon-core desktop-base
 
 # 2) KDE Plasma（重めだが機能豊富）を使いたい場合はこちらを代わりに
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y plasma-desktop
+# sudo DEBIAN_FRONTEND=noninteractive apt-get install -y plasma-desktop
 
 # 3) Pantheon（Elementary OSのDE。軽量でモダン。ただしCRDでの相性は未知数）
 # sudo add-apt-repository -y ppa:elementary-os/daily
