@@ -10,4 +10,5 @@ set -euo pipefail
 sudo apt-get update -y || true
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y texlive-full
 
-sudo apt-get install -y tex-fmt
+# Install tex-fmt if available (may not exist in all Ubuntu versions)
+sudo apt-get install -y tex-fmt || echo "tex-fmt not available, skipping"
