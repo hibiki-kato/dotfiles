@@ -1,0 +1,10 @@
+[Unit]
+Description=Update RGB periodically
+
+[Timer]
+OnBootSec=10
+OnUnitActiveSec=1
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

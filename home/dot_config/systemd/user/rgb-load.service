@@ -1,0 +1,6 @@
+[Unit]
+Description=Set RGB based on CPU load (one-shot)
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/rgb_load_once.sh
