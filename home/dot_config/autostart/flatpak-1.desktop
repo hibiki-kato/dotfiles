@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=flatpak run io.github.jeffshee.Hidamari
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[ja_JP]=Hidamari
+Name=Hidamari
+Comment[ja_JP]=Live Desktop
+Comment=Live Desktop

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Steam
+Comment=steam
+Exec=steam
+Type=Application
+Terminal=false
+Hidden=false
+

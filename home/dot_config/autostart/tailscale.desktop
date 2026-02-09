@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=tailscale up
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[ja_JP]=tailscale
+Name=tailscale
+Comment[ja_JP]=
+Comment=
