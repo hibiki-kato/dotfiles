@@ -6,5 +6,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   stacer \
   indicator-multiload \
   trash-cli \
-  copyq
+  copyq \
+  vlc \
+  ffmpeg
 

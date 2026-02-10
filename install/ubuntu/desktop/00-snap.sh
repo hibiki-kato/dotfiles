@@ -20,12 +20,12 @@ packages=(
   docker
   spotify
   mission-center
-  vlc
   gimp
   obs-studio
   zoom-client
   dropboxignore
   localsend
+  slack
 )
 
 for pkg in "${packages[@]}"; do
