@@ -8,5 +8,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   trash-cli \
   copyq \
   vlc \
-  ffmpeg
+  ffmpeg \
+  redshift \
+  ripgrep
 

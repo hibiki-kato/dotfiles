@@ -14,4 +14,4 @@ sudo apt-get install -y \
   openssh-client \
   software-properties-common \
   flatpak \
-  redshift
+  npm
