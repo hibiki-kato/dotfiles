@@ -9,7 +9,9 @@ echo "=== Starting driver installation for {{ .chezmoi.os }} ==="
 {{- if hasKey . "system" }}
   {{- $system = .system }}
 {{- else if eq .chezmoi.os "linux" }}
-  {{- if contains "server" .chezmoi.hostname }}
+  {{- if or (eq .chezmoi.osRelease.id "raspbian") (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
+    {{- $system = "raspberrypi" }}
+  {{- else if contains "server" .chezmoi.hostname }}
     {{- $system = "server" }}
   {{- end }}
 {{- end }}
@@ -32,13 +34,17 @@ run_all() {
 run_all "{{ $driver }}/macos"
 
 {{ else if eq .chezmoi.os "linux" -}}
-# Ubuntu common drivers
-run_all "{{ $driver }}/ubuntu/common"
-
-if [ "{{ $system }}" = "server" ]; then
+if [ "{{ $system }}" = "raspberrypi" ]; then
+  # Raspberry Pi drivers (if any)
+  run_all "{{ $driver }}/raspberrypi"
+elif [ "{{ $system }}" = "server" ]; then
+  # Ubuntu common drivers
+  run_all "{{ $driver }}/ubuntu/common"
   # Ubuntu server drivers
   run_all "{{ $driver }}/ubuntu/server"
 else
+  # Ubuntu common drivers
+  run_all "{{ $driver }}/ubuntu/common"
   # Ubuntu desktop drivers
   run_all "{{ $driver }}/ubuntu/desktop"
 fi

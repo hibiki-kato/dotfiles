@@ -1,1 +1,33 @@
 .DS_Store
+
+{{- $system := "desktop" }}
+{{- if hasKey . "system" }}
+  {{- $system = .system }}
+{{- else if eq .chezmoi.os "linux" }}
+  {{- if or (eq .chezmoi.osRelease.id "raspbian") (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
+    {{- $system = "raspberrypi" }}
+  {{- else if contains "server" .chezmoi.hostname }}
+    {{- $system = "server" }}
+  {{- end }}
+{{- end }}
+
+{{ if ne .chezmoi.os "darwin" -}}
+.Brewfile
+.config/karabiner/**
+{{ end -}}
+
+{{ if or (eq .chezmoi.os "darwin") (eq $system "server") -}}
+.config/autostart/**
+.config/systemd/user/rgb-load.service
+.config/systemd/user/rgb-load.timer
+.local/bin/rgb_load_once.sh
+.xinputrc
+.xprofile
+{{ end -}}
+
+{{ if eq $system "raspberrypi" -}}
+.config/autostart/**
+.config/systemd/user/rgb-load.service
+.config/systemd/user/rgb-load.timer
+.local/bin/rgb_load_once.sh
+{{ end -}}

@@ -11,6 +11,11 @@ brew install git chezmoi
 sudo apt update && sudo apt install -y git
 snap install chezmoi --classic
 ```
+### Raspberry Pi OS
+```sh
+sudo apt update && sudo apt install -y git curl
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+```
 ### Windows
 ```ps1
 winget install --id Git.Git -e --source winget
@@ -19,8 +24,10 @@ winget install --id=twpayne.chezmoi  -e
 
 ## Chezmoi init
 ```sh
-chezmoi init --apply hibiki-kato/dotfiles
+chezmoi init --apply hibiki-kato
 ```
+
+On Raspberry Pi, the profile is detected when `/etc/os-release` reports `raspbian`, or when the hostname contains `raspberrypi` or `raspi`. It writes `system = "raspberrypi"` to chezmoi data and runs only `install/raspberrypi`.
 
 ## TODO
 ```mermaid
@@ -87,7 +94,4 @@ Set equalizer
 Install Zotmoov, Better BibTeX, and Zotero Better Notes.
 
 Follow this [link](https://plaza.umin.ac.jp/shoei05/index.php/2025/01/03/2706/#2_クラウドストレージにはメタ情報のみ、pdfは外部ストレージへ設定する_Zotmoov)
-
-
-
 

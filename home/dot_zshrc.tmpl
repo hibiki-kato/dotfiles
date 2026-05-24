@@ -1,26 +1,49 @@
 # Common settings (all platforms)
+{{- $system := "desktop" }}
+{{- if hasKey . "system" }}
+  {{- $system = .system }}
+{{- else if eq .chezmoi.os "linux" }}
+  {{- if or (eq .chezmoi.osRelease.id "raspbian") (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
+    {{- $system = "raspberrypi" }}
+  {{- else if contains "server" .chezmoi.hostname }}
+    {{- $system = "server" }}
+  {{- end }}
+{{- end }}
+
 # Lean/Elan
 export PATH="$HOME/.elan/bin:$PATH"
 # Local user binaries (e.g., uv installs here)
 export PATH="$HOME/.local/bin:$PATH"
+# Juliaup
+export PATH="$HOME/.juliaup/bin:$PATH"
+
+# Safer rm when a trash command is available
+if command -v trash >/dev/null 2>&1; then
+    alias rm='trash'
+elif command -v trash-put >/dev/null 2>&1; then
+    alias rm='trash-put'
+fi
+
+# Julia thread count
+export JULIA_NUM_THREADS=auto
 
 {{ if eq .chezmoi.os "darwin" -}}
 # === macOS specific settings ===
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+# Miniforge (Conda-forge) initialization
+if [ -x "/opt/homebrew/Caskroom/miniforge/base/bin/conda" ]; then
+    __conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
     else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+        export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
     fi
+    unset __conda_setup
+elif [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+    . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+else
+    export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
 fi
-unset __conda_setup
-# <<< conda initialize <<<
 export "PATH=/usr/local/bin:$PATH"
 
 # LAPACK (Homebrew)
@@ -34,17 +57,11 @@ export OS_NAME=Darwin
 export HOMEBREW_CC=gcc
 export HOMEBREW_CXX=g++
 
-#rmを安全化
-alias rm='trash'
-
 # Docker settings
 export DOCKER_BUILDKIT=1
 
 # OpenMP thread count
 export OMP_NUM_THREADS=10
-
-# Julia thread count
-export JULIA_NUM_THREADS=auto
 
 # Flutter path
 export PATH="$PATH:$HOME/Library/CloudStorage/Dropbox/flutter/bin"
@@ -55,28 +72,43 @@ export PATH="$PATH:$HOME/.lmstudio/bin"
 # Wolfram
 export PATH="/Applications/Wolfram.app/Contents/MacOS:$PATH"
 
+# Antigravity
+export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+
+# Bun
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Claude memory worker
+alias claude-mem='$HOME/.bun/bin/bun "$HOME/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+
 {{ else if eq .chezmoi.os "linux" -}}
 # === Linux specific settings ===
+
+{{ if eq $system "raspberrypi" -}}
+# Raspberry Pi specific settings
+export OS_NAME=RaspberryPi
+
+{{ else -}}
+# Ubuntu specific settings
+export OS_NAME=Linux
+
 # Miniforge (Conda-forge) initialization
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$HOME/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/miniforge3/etc/profile.d/conda.sh"
+if [ -x "$HOME/miniforge3/bin/conda" ]; then
+    __conda_setup="$('$HOME/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
     else
         export PATH="$HOME/miniforge3/bin:$PATH"
     fi
+    unset __conda_setup
+else
+    if [ -f "$HOME/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/miniforge3/etc/profile.d/conda.sh"
+    fi
 fi
-unset __conda_setup
-# <<< conda initialize <<<
 
-# OS name
-export OS_NAME=Linux
-alias rm='trash-put'
-
-export PATH="$HOME/.juliaup/bin:$PATH"
 export PATH="/usr/local/cuda/bin${PATH:+:${PATH}}"
 export LD_LIBRARY_PATH="/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
@@ -85,4 +117,5 @@ if [ -d "$HOME/texlive/bin" ]; then
     export PATH="$HOME/texlive/bin:$PATH"
 fi
 
+{{ end -}}
 {{ end -}}

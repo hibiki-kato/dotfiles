@@ -3,5 +3,8 @@
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/hibiki/.lmstudio/bin"
 {{ else if eq .chezmoi.os "linux" -}}
-setxkbmap -option ctrl:nocaps
+if command -v setxkbmap >/dev/null 2>&1 && [ -n "${DISPLAY:-}" ]; then
+    # convert caps lock to ctrl
+    setxkbmap -option ctrl:nocaps || true
+fi
 {{ end -}}

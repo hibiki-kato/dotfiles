@@ -2,5 +2,7 @@
 # macOS: Homebrew shellenv
 eval "$(/opt/homebrew/bin/brew shellenv)"
 {{ else if eq .chezmoi.os "linux" -}}
-setxkbmap -option ctrl:nocaps
+if command -v setxkbmap >/dev/null 2>&1 && [ -n "${DISPLAY:-}" ]; then
+    setxkbmap -option ctrl:nocaps || true
+fi
 {{ end -}}

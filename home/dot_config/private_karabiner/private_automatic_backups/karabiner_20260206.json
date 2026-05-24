@@ -5,26 +5,6 @@
     },
     "profiles": [
         {
-            "complex_modifications": {
-                "rules": [
-                    {
-                        "description": "Right command + backslash = left click",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "backslash",
-                                    "modifiers": {
-                                        "mandatory": ["right_command"],
-                                        "optional": ["caps_lock"]
-                                    }
-                                },
-                                "to": [{ "pointing_button": "button1" }],
-                                "type": "basic"
-                            }
-                        ]
-                    }
-                ]
-            },
             "devices": [
                 {
                     "identifiers": { "is_keyboard": true },
@@ -55,16 +35,32 @@
                             "to": [{ "key_code": "left_control" }]
                         },
                         {
-                            "from": { "key_code": "f5" },
-                            "to": [{ "consumer_key_code": "rewind" }]
-                        },
-                        {
                             "from": { "key_code": "f6" },
                             "to": [{ "consumer_key_code": "fast_forward" }]
                         },
                         {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_option" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                        },
+                        {
+                            "from": { "key_code": "left_option" },
+                            "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "right_option" },
+                            "to": [{ "key_code": "right_command" }]
+                        },
+                        {
                             "from": { "key_code": "f7" },
                             "to": [{ "consumer_key_code": "play_or_pause" }]
+                        },
+                        {
+                            "from": { "key_code": "f5" },
+                            "to": [{ "consumer_key_code": "rewind" }]
                         },
                         {
                             "from": { "key_code": "f8" },
@@ -85,22 +81,6 @@
                         {
                             "from": { "key_code": "f12" },
                             "to": [{ "software_function": { "iokit_power_management_sleep_system": {} } }]
-                        },
-                        {
-                            "from": { "key_code": "left_command" },
-                            "to": [{ "key_code": "left_option" }]
-                        },
-                        {
-                            "from": { "key_code": "left_control" },
-                            "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
-                        },
-                        {
-                            "from": { "key_code": "left_option" },
-                            "to": [{ "key_code": "left_command" }]
-                        },
-                        {
-                            "from": { "key_code": "right_option" },
-                            "to": [{ "key_code": "right_command" }]
                         }
                     ]
                 }

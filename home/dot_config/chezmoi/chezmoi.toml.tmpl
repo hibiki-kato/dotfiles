@@ -1,15 +1,17 @@
 # Managed by chezmoi (template)
 # This file will be written to ~/.config/chezmoi/chezmoi.toml
 
-{{- $system := "desktop" -}}
-{{- if eq .chezmoi.os "linux" -}}
-  {{- /* Auto-detect: server if hostname contains "server", otherwise desktop */ -}}
-  {{- if contains "server" .chezmoi.hostname -}}
+{{ $system := "desktop" }}
+{{- if eq .chezmoi.os "linux" }}
+  {{- /* Auto-detect: Raspberry Pi first, then server if hostname contains "server", otherwise desktop */ -}}
+  {{- if or (eq .chezmoi.osRelease.id "raspbian") (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) -}}
+    {{- $system = "raspberrypi" -}}
+  {{- else if contains "server" .chezmoi.hostname -}}
     {{- $system = "server" -}}
   {{- else -}}
     {{- $system = "desktop" -}}
   {{- end -}}
-{{- end -}}
+{{- end }}
 
 # Global config
 [config]

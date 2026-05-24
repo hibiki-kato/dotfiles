@@ -6,6 +6,9 @@ INSTALL_DIR="{{ .chezmoi.sourceDir }}/../install"
 echo "=== Testing chezmoi scripts on {{ .chezmoi.os }} ==="
 echo "Hostname: {{ .chezmoi.hostname }}"
 echo "Username: {{ .chezmoi.username }}"
+{{- if hasKey . "system" }}
+echo "System: {{ .system }}"
+{{- end }}
 echo "Install directory: $INSTALL_DIR"
 
 {{- if eq .chezmoi.os "darwin" }}

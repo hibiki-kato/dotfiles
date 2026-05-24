@@ -18,9 +18,8 @@ ensure_link() {
 # Dropbox ルート
 ensure_link "$HOME/Dropbox" "$HOME/Library/CloudStorage/Dropbox"
 
-# Documents / Downloads
+# Documents
 ensure_link "$HOME/Documents" "$HOME/Library/CloudStorage/Dropbox/Documents"
-ensure_link "$HOME/Downloads" "$HOME/Library/CloudStorage/Dropbox/Downloads"
 
 # iPhone Backup
 ensure_link "$HOME/Library/Application Support/MobileSync/Backup" \
@@ -29,6 +28,13 @@ ensure_link "$HOME/Library/Application Support/MobileSync/Backup" \
 # chezmoi
 ensure_link "$HOME/chezmoi" "$HOME/.local/share/chezmoi"
 
-# cpp
-sudo ln -sf /opt/homebrew/bin/gcc-15 /usr/local/bin/gcc
-sudo ln -sf /opt/homebrew/bin/g++-15 /usr/local/bin/g++
+# overwride gcc with genuine gnu gcc
+_gcc_bin=$(ls /opt/homebrew/bin/gcc-[0-9]* 2>/dev/null | sort -t- -k2 -V | tail -1)
+_gxx_bin=$(ls /opt/homebrew/bin/g++-[0-9]* 2>/dev/null | sort -t- -k2 -V | tail -1)
+if [[ -n "$_gcc_bin" && -n "$_gxx_bin" ]]; then
+  sudo ln -sf "$_gcc_bin" /usr/local/bin/gcc
+  sudo ln -sf "$_gxx_bin" /usr/local/bin/g++
+else
+  echo "Warning: Homebrew gcc not found, skipping cpp symlinks" >&2
+fi
+unset _gcc_bin _gxx_bin

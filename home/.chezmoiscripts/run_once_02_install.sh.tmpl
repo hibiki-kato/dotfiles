@@ -9,7 +9,9 @@ echo "=== Starting bootstrap for {{ .chezmoi.os }} ==="
 {{- if hasKey . "system" }}
   {{- $system = .system }}
 {{- else if eq .chezmoi.os "linux" }}
-  {{- if contains "server" .chezmoi.hostname }}
+  {{- if or (eq .chezmoi.osRelease.id "raspbian") (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
+    {{- $system = "raspberrypi" }}
+  {{- else if contains "server" .chezmoi.hostname }}
     {{- $system = "server" }}
   {{- end }}
 {{- end }}
@@ -32,13 +34,17 @@ run_all() {
 run_all "{{ $install }}/macos"
 
 {{ else if eq .chezmoi.os "linux" -}}
-# Ubuntu common prereqs
-run_all "{{ $install }}/ubuntu/common"
-
-if [ "{{ $system }}" = "server" ]; then
+if [ "{{ $system }}" = "raspberrypi" ]; then
+  # Raspberry Pi lightweight installers
+  run_all "{{ $install }}/raspberrypi"
+elif [ "{{ $system }}" = "server" ]; then
+  # Ubuntu common prereqs
+  run_all "{{ $install }}/ubuntu/common"
   # Ubuntu server
   run_all "{{ $install }}/ubuntu/server"
 else
+  # Ubuntu common prereqs
+  run_all "{{ $install }}/ubuntu/common"
   # Ubuntu desktop
   run_all "{{ $install }}/ubuntu/desktop"
 fi
