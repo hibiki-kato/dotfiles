@@ -26,6 +26,9 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   wget \
   zsh
 
+# pi-apps
+wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bash
+
 if apt-cache show pipx >/dev/null 2>&1; then
   sudo DEBIAN_FRONTEND=noninteractive apt-get install -y pipx
 else

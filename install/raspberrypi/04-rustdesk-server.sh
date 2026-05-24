@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if ! command -v docker >/dev/null 2>&1; then
-  echo "Docker is required for rustdesk-server. Run 02-docker.sh first." >&2
+  echo "Docker is required for rustdesk-server. Run 03-docker.sh first." >&2
   exit 1
 fi
 

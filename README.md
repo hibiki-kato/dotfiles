@@ -1,33 +1,106 @@
 # dotfiles
-## Set up guide before `chezmoi init --apply`
+
+## セットアップ手順（`chezmoi init --apply` 前）
+
 ### MacOS
 ```sh
 export HOMEBREW_NO_INSTALL_FROM_API=1
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install git chezmoi
 ```
+
 ### Ubuntu
 ```sh
 sudo apt update && sudo apt install -y git
 snap install chezmoi --classic
 ```
+
 ### Raspberry Pi OS
 ```sh
-sudo apt update && sudo apt install -y git curl
+sudo apt update && sudo apt install -y git curl zsh
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+export PATH="$HOME/.local/bin:$PATH"
 ```
+
 ### Windows
 ```ps1
 winget install --id Git.Git -e --source winget
 winget install --id=twpayne.chezmoi  -e
 ```
 
-## Chezmoi init
+## 初期化
+
 ```sh
 chezmoi init --apply hibiki-kato
 ```
 
-On Raspberry Pi, the profile is detected when `/etc/os-release` reports `raspbian`, or when the hostname contains `raspberrypi` or `raspi`. It writes `system = "raspberrypi"` to chezmoi data and runs only `install/raspberrypi`.
+Raspberry Pi では `/etc/os-release` が `raspbian` を返すか、ホスト名に `raspberrypi` / `raspi` が含まれる場合に自動検出される。`system = "raspberrypi"` が chezmoi データに書き込まれ、`install/raspberrypi` のみ実行される。
+
+---
+
+## dotfiles の更新ワークフロー
+
+### ファイルを編集して反映する
+
+```sh
+# chezmoi ソースを直接編集
+chezmoi edit ~/.zshrc
+
+# 編集後に適用
+chezmoi apply
+```
+
+または実ファイルを直接編集した後:
+
+```sh
+# 差分確認
+chezmoi diff
+
+# chezmoi ソースへ取り込み
+chezmoi re-add ~/.zshrc
+
+# git でコミット
+cd ~/.local/share/chezmoi
+git add -p
+git commit -m "update zshrc"
+git push
+```
+
+### 新しいファイルを管理対象に追加する
+
+```sh
+chezmoi add ~/.config/starship.toml
+```
+
+### リモートの変更を取り込む
+
+```sh
+chezmoi update        # git pull + apply を一括実行
+```
+
+または個別に:
+
+```sh
+cd ~/.local/share/chezmoi
+git pull
+chezmoi apply
+```
+
+### 差分・状態確認
+
+```sh
+chezmoi diff          # ソースと実ファイルの差分
+chezmoi status        # 変更があるファイル一覧
+chezmoi data          # テンプレ変数の確認
+```
+
+### ドライラン（適用前確認）
+
+```sh
+chezmoi apply --dry-run --verbose
+```
+
+---
 
 ## TODO
 ```mermaid
@@ -44,54 +117,4 @@ flowchart TD
   A8["Lv8 Docker テスト\n初期 Ubuntu で chezmoi init --apply 検証"] --> A9
   A9["Lv9 CI テスト強化\nGitHub Actions (macOS/Ubuntu) + Bats + Codecov"] --> A10
   A10["Lv10 配布・保守\nワンライナー / Makefile / watch タスク / ドライラン運用"]
-
-  %% （必要ならクラス定義は後置で明示的に）
-  %% class A10 final;
-  %% classDef final fill:#1f2937,stroke:#0ea5e9,stroke-width:2px,color:#fff;
 ```
-
-# Bellow are deprecated instructions. 
-## MacOS
-
-### Install command line tools
-Install command line tools for Xcode. This is required for installing git and other packages.
-```sh
-xcode-select --install
-```
-Set user name and email for git. 
-```sh
-git config --global user.name "Your Name"
-git config --global user.email "example.com"
-```
-
-## Clone this repository
-```sh
-cd ~
-git clone https://github.com/hibiki-kato/dotfiles.git
-cd dotfiles
-```
-
-## Run startup.sh
-```sh
-zsh ./scripts/setup.sh
-```
-
-## System settings
-Open settings and set as same as previous device.
-
-Additionally, run
-```sh
-zsh ./scripts/system_settings.sh
-``` 
-
-## Raycast
-Open System Settings > General > Keyboard > Keyboard Shortcuts > Spotlight >
-
-## Music
-Set equalizer
-
-## Zotero
-Install Zotmoov, Better BibTeX, and Zotero Better Notes.
-
-Follow this [link](https://plaza.umin.ac.jp/shoei05/index.php/2025/01/03/2706/#2_クラウドストレージにはメタ情報のみ、pdfは外部ストレージへ設定する_Zotmoov)
-
