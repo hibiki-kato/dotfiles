@@ -6,15 +6,32 @@ echo "=== Starting bootstrap for {{ .chezmoi.os }} ==="
 {{- $src := .chezmoi.sourceDir }}
 {{- $install := printf "%s/../install" $src }}
 {{- $system := "desktop" }}
-{{- if hasKey . "system" }}
-  {{- $system = .system }}
-{{- else if eq .chezmoi.os "linux" }}
-  {{- if or (eq .chezmoi.osRelease.id "raspbian") (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
+{{- if eq .chezmoi.os "linux" }}
+  {{- $osID := .chezmoi.osRelease.id }}
+  {{- $osName := "" }}
+  {{- $osPrettyName := "" }}
+  {{- if hasKey .chezmoi.osRelease "name" }}
+    {{- $osName = .chezmoi.osRelease.name }}
+  {{- end }}
+  {{- if hasKey .chezmoi.osRelease "prettyName" }}
+    {{- $osPrettyName = .chezmoi.osRelease.prettyName }}
+  {{- end }}
+  {{- if or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
     {{- $system = "raspberrypi" }}
+  {{- else if hasKey . "system" }}
+    {{- $system = .system }}
   {{- else if contains "server" .chezmoi.hostname }}
     {{- $system = "server" }}
   {{- end }}
+{{- else if hasKey . "system" }}
+  {{- $system = .system }}
 {{- end }}
+
+is_raspberry_pi() {
+  [ -r /proc/device-tree/model ] && grep -qi 'raspberry pi' /proc/device-tree/model && return 0
+  [ -r /etc/os-release ] && grep -qi 'raspberry pi' /etc/os-release && return 0
+  return 1
+}
 
 # Run all *.sh in a directory (lexicographic order: 001-*, 002-*, ...)
 run_all() {
@@ -34,10 +51,15 @@ run_all() {
 run_all "{{ $install }}/macos"
 
 {{ else if eq .chezmoi.os "linux" -}}
-if [ "{{ $system }}" = "raspberrypi" ]; then
+system="{{ $system }}"
+if is_raspberry_pi; then
+  system="raspberrypi"
+fi
+
+if [ "$system" = "raspberrypi" ]; then
   # Raspberry Pi lightweight installers
   run_all "{{ $install }}/raspberrypi"
-elif [ "{{ $system }}" = "server" ]; then
+elif [ "$system" = "server" ]; then
   # Ubuntu common prereqs
   run_all "{{ $install }}/ubuntu/common"
   # Ubuntu server

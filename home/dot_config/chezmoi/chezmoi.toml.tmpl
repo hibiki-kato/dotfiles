@@ -4,7 +4,16 @@
 {{ $system := "desktop" }}
 {{- if eq .chezmoi.os "linux" }}
   {{- /* Auto-detect: Raspberry Pi first, then server if hostname contains "server", otherwise desktop */ -}}
-  {{- if or (eq .chezmoi.osRelease.id "raspbian") (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) -}}
+  {{- $osID := .chezmoi.osRelease.id -}}
+  {{- $osName := "" -}}
+  {{- $osPrettyName := "" -}}
+  {{- if hasKey .chezmoi.osRelease "name" -}}
+    {{- $osName = .chezmoi.osRelease.name -}}
+  {{- end -}}
+  {{- if hasKey .chezmoi.osRelease "prettyName" -}}
+    {{- $osPrettyName = .chezmoi.osRelease.prettyName -}}
+  {{- end -}}
+  {{- if or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) -}}
     {{- $system = "raspberrypi" -}}
   {{- else if contains "server" .chezmoi.hostname -}}
     {{- $system = "server" -}}

@@ -1,13 +1,24 @@
 # Common settings (all platforms)
 {{- $system := "desktop" }}
-{{- if hasKey . "system" }}
-  {{- $system = .system }}
-{{- else if eq .chezmoi.os "linux" }}
-  {{- if or (eq .chezmoi.osRelease.id "raspbian") (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
+{{- if eq .chezmoi.os "linux" }}
+  {{- $osID := .chezmoi.osRelease.id }}
+  {{- $osName := "" }}
+  {{- $osPrettyName := "" }}
+  {{- if hasKey .chezmoi.osRelease "name" }}
+    {{- $osName = .chezmoi.osRelease.name }}
+  {{- end }}
+  {{- if hasKey .chezmoi.osRelease "prettyName" }}
+    {{- $osPrettyName = .chezmoi.osRelease.prettyName }}
+  {{- end }}
+  {{- if or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
     {{- $system = "raspberrypi" }}
+  {{- else if hasKey . "system" }}
+    {{- $system = .system }}
   {{- else if contains "server" .chezmoi.hostname }}
     {{- $system = "server" }}
   {{- end }}
+{{- else if hasKey . "system" }}
+  {{- $system = .system }}
 {{- end }}
 
 # Lean/Elan
