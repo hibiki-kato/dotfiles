@@ -26,6 +26,7 @@ packages=(
   dropboxignore
   localsend
   slack
+  drawio
 )
 
 for pkg in "${packages[@]}"; do
@@ -40,7 +41,7 @@ done
 # classic installs
 classic_packages=(
   astral-uv
-  code
+  # code
 )
 
 for pkg in "${classic_packages[@]}"; do
