@@ -1,14 +1,26 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
-# Install TeX Live (user-local) via upstream installer (quickinstall)
-# - Non-interactive using a profile (scheme-small, no docs/src)
-# - Installs under $HOME/texlive/<year>
-# - Adds a stable symlink $HOME/texlive/bin -> .../bin/<arch>
+# Install TeX Live via apt, then install tex-fmt.
+# tex-fmt: prefer apt; fall back to Cargo if apt package is unavailable.
 
-# Prerequisites
 sudo apt-get update -y || true
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y texlive-full
 
-# Install tex-fmt if available (may not exist in all Ubuntu versions)
-sudo apt-get install -y tex-fmt || echo "tex-fmt not available, skipping"
+# Make cargo visible if rustup installed it.
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+if command -v tex-fmt >/dev/null 2>&1; then
+    echo "tex-fmt already installed: $(command -v tex-fmt)"
+elif sudo DEBIAN_FRONTEND=noninteractive apt-get install -y tex-fmt; then
+    echo "tex-fmt installed via apt"
+else
+    echo "tex-fmt not available via apt; installing via Cargo"
+    if command -v cargo-binstall >/dev/null 2>&1; then
+        cargo binstall --no-confirm tex-fmt || cargo install --locked tex-fmt
+    else
+        cargo install --locked tex-fmt
+    fi
+fi
+
+tex-fmt --version
