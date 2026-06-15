@@ -7,4 +7,8 @@ if command -v gemini >/dev/null 2>&1; then
   exit 0
 fi
 
+mkdir -p "$HOME/.local"
+npm config set prefix "$HOME/.local"
+export PATH="$HOME/.local/bin:$PATH"
+
 npm install -g @google/gemini-cli
