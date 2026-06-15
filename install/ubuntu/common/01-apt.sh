@@ -25,10 +25,16 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   w3m \
   chafa \
   imagemagick \
-  nodejs \
-  npm \
   neovim \
   zsh \
   zsh-syntax-highlighting \
   zsh-autosuggestions \
   btop
+
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+
+if command -v npm >/dev/null 2>&1; then
+  echo "npm available: $(npm --version)"
+else
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y npm
+fi
