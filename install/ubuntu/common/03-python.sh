@@ -13,16 +13,21 @@ case "$ARCH" in
 	*) MF_ARCH="x86_64" ;;
 esac
 
-# Install Miniforge to $HOME/miniforge3 if missing
+# Install Miniforge to $HOME/miniforge3 if missing.
 MINIFORGE_DIR="$HOME/miniforge3"
-if [[ ! -x "$MINIFORGE_DIR/bin/conda" ]]; then
+if [[ -d "$MINIFORGE_DIR" ]]; then
+	echo "Miniforge directory already exists, skipping install: $MINIFORGE_DIR"
+elif command -v conda >/dev/null 2>&1; then
+	echo "conda already available, skipping Miniforge install: $(command -v conda)"
+else
 	wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-$MF_ARCH.sh -O ~/miniforge.sh
 	# Use bash to avoid zsh glob pattern issues during installation
 	bash ~/miniforge.sh -b -p "$MINIFORGE_DIR"
 	rm ~/miniforge.sh
-	if ! grep -q "miniforge3/bin" ~/.zshrc; then
-		echo "export PATH=\"\$HOME/miniforge3/bin:\$PATH\"" >> ~/.zshrc
-	fi
+fi
+
+if [[ -f "$HOME/.zshrc" ]] && ! grep -q "miniforge3/bin" "$HOME/.zshrc"; then
+	echo "export PATH=\"\$HOME/miniforge3/bin:\$PATH\"" >> "$HOME/.zshrc"
 fi
 
 echo "Miniforge path: $MINIFORGE_DIR (conda available)"

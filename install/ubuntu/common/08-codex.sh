@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
+export PATH="$HOME/.local/bin:$PATH"
+
 # Codex installer. Skip when the command is already available so this bootstrap
 # can be re-run without reinstalling Codex every time.
 if command -v codex >/dev/null 2>&1; then

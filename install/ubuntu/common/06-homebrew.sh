@@ -24,6 +24,15 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   file \
   git
 
+if [[ "${EUID:-$(id -u)}" -eq 0 ]]; then
+  if [[ -x "${linuxbrew_prefix}/bin/brew" ]]; then
+    eval "$("${linuxbrew_prefix}/bin/brew" shellenv zsh)"
+  else
+    echo "Homebrew install must run as the target user, not root. Re-run chezmoi as the normal user." >&2
+    exit 1
+  fi
+fi
+
 if ! command -v brew >/dev/null 2>&1; then
   NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi

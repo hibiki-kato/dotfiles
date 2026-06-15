@@ -15,6 +15,8 @@ sudo apt update && sudo apt install -y git
 snap install chezmoi --classic
 ```
 
+Ubuntu installers place user-level CLI tools under `$HOME/.local/bin`; `.zshrc` adds this directory to `PATH`.
+
 ### Raspberry Pi OS
 ```sh
 sudo apt update && sudo apt install -y git curl zsh

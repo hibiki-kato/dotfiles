@@ -30,4 +30,5 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   neovim \
   zsh \
   zsh-syntax-highlighting \
-  zsh-autosuggestions
+  zsh-autosuggestions \
+  btop
