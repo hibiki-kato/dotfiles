@@ -1,6 +1,8 @@
 # Common settings (all platforms)
-{{- $system := "desktop" }}
-{{- if eq .chezmoi.os "linux" }}
+{{- $isDarwin := eq .chezmoi.os "darwin" }}
+{{- $isLinux := eq .chezmoi.os "linux" }}
+{{- $linuxProfile := "desktop" }}
+{{- if $isLinux }}
   {{- $osID := .chezmoi.osRelease.id }}
   {{- $osName := "" }}
   {{- $osPrettyName := "" }}
@@ -10,8 +12,9 @@
   {{- if hasKey .chezmoi.osRelease "prettyName" }}
     {{- $osPrettyName = .chezmoi.osRelease.prettyName }}
   {{- end }}
-  {{- if or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) }}
-    {{- $system = "raspberrypi" }}
+  {{- $isRaspberryPiOS := or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) }}
+  {{- if $isRaspberryPiOS }}
+    {{- $linuxProfile = "raspberrypi" }}
   {{- end }}
 {{- end }}
 
@@ -21,6 +24,12 @@ export PATH="$HOME/.elan/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 # Juliaup
 export PATH="$HOME/.juliaup/bin:$PATH"
+# Rust/Cargo
+if [ -f "$HOME/.cargo/env" ]; then
+    source "$HOME/.cargo/env"
+else
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
 
 # Safer rm when a trash command is available
 if command -v trash >/dev/null 2>&1; then
@@ -32,7 +41,7 @@ fi
 # Julia thread count
 export JULIA_NUM_THREADS=auto
 
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if $isDarwin -}}
 # === macOS specific settings ===
 
 # Miniforge (Conda-forge) initialization
@@ -88,7 +97,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Claude memory worker
 alias claude-mem='$HOME/.bun/bin/bun "$HOME/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
 
-{{ else if eq .chezmoi.os "linux" -}}
+{{ else if $isLinux -}}
 # === Linux specific settings ===
 
 # Linuxbrew
@@ -96,7 +105,16 @@ if [ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 fi
 
-{{ if eq $system "raspberrypi" -}}
+# Zsh tools installed by Linuxbrew
+if command -v brew >/dev/null 2>&1; then
+    _zsh_history_substring_search="$(brew --prefix 2>/dev/null)/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
+    [ -r "$_zsh_history_substring_search" ] && source "$_zsh_history_substring_search"
+    unset _zsh_history_substring_search
+fi
+command -v atuin >/dev/null 2>&1 && eval "$(atuin init zsh)"
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
+
+{{ if eq $linuxProfile "raspberrypi" -}}
 # Raspberry Pi specific settings
 export OS_NAME=RaspberryPi
 

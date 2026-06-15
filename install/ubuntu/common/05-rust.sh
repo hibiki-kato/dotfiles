@@ -36,15 +36,6 @@ if ! command -v rustup >/dev/null 2>&1; then
   exit 0
 fi
 
-# Ensure shell init contains cargo path
-if [[ -f "$HOME/.zshrc" ]]; then
-  if ! grep -q 'cargo/env' "$HOME/.zshrc"; then
-    echo 'source "$HOME/.cargo/env"' >> "$HOME/.zshrc"
-  fi
-else
-  echo 'source "$HOME/.cargo/env"' > "$HOME/.zshrc"
-fi
-
 # Install stable toolchain only when missing.
 if rustup toolchain list | grep -q '^stable'; then
   echo "Rust stable toolchain already installed, skipping."

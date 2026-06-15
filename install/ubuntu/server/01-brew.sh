@@ -19,4 +19,5 @@ brew trust normen/tap || true
 
 brew install -y \
   chawan \
+  meli \
   normen/tap/whatscli

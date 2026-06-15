@@ -26,8 +26,4 @@ else
 	rm ~/miniforge.sh
 fi
 
-if [[ -f "$HOME/.zshrc" ]] && ! grep -q "miniforge3/bin" "$HOME/.zshrc"; then
-	echo "export PATH=\"\$HOME/miniforge3/bin:\$PATH\"" >> "$HOME/.zshrc"
-fi
-
 echo "Miniforge path: $MINIFORGE_DIR (conda available)"

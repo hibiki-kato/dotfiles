@@ -6,16 +6,6 @@ export HOMEBREW_NO_SANDBOX_LINUX=1
 export HOMEBREW_NO_ASK=1
 
 linuxbrew_prefix="/home/linuxbrew/.linuxbrew"
-linuxbrew_shellenv='eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"'
-
-append_once() {
-  local line="$1"
-  local file="$2"
-
-  if ! grep -Fqx "$line" "$file" 2>/dev/null; then
-    printf '\n%s\n' "$line" >> "$file"
-  fi
-}
 
 sudo apt-get update -y || true
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -47,17 +37,9 @@ if ! command -v brew >/dev/null 2>&1; then
   exit 1
 fi
 
-append_once "$linuxbrew_shellenv" "$HOME/.zprofile"
-append_once "$linuxbrew_shellenv" "$HOME/.zshrc"
-
 brew install -y \
   zsh-autocomplete \
   zsh-history-substring-search \
   atuin \
   starship \
   glow
-
-append_once 'source $(brew --prefix)/share/zsh-history-substring-search/zsh-history-substring-search.zsh' "$HOME/.zshrc"
-append_once 'eval "$(atuin init zsh)"' "$HOME/.zshrc"
-append_once 'eval "$(starship init zsh)"' "$HOME/.zshrc"
-eval "$(starship init zsh)"

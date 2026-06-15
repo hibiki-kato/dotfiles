@@ -8,4 +8,9 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   pipewire-pulse \
   alsa-utils \
   bluez \
-  bluetooth
+  bluetooth \
+  uim \
+  uim-fep \
+  uim-mozc \
+  mozc-server \
+  fonts-noto-cjk

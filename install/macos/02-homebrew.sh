@@ -17,10 +17,6 @@ if ! command -v brew >/dev/null 2>&1; then
   
   eval "$(${prefix}/bin/brew shellenv)"
   
-  if ! grep -qs "brew shellenv" "$HOME/.zprofile" 2>/dev/null; then
-    echo "eval \"\$(${prefix}/bin/brew shellenv)\"" >> "$HOME/.zprofile"
-  fi
-  
   echo "✓ Homebrew installed"
 else
   echo "✓ Homebrew already installed"

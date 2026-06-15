@@ -1,7 +1,9 @@
 .DS_Store
 
-{{- $system := "desktop" }}
-{{- if eq .chezmoi.os "linux" }}
+{{- $isDarwin := eq .chezmoi.os "darwin" }}
+{{- $isLinux := eq .chezmoi.os "linux" }}
+{{- $linuxProfile := "desktop" }}
+{{- if $isLinux }}
   {{- $osID := .chezmoi.osRelease.id }}
   {{- $osName := "" }}
   {{- $osPrettyName := "" }}
@@ -11,19 +13,20 @@
   {{- if hasKey .chezmoi.osRelease "prettyName" }}
     {{- $osPrettyName = .chezmoi.osRelease.prettyName }}
   {{- end }}
-  {{- if or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
-    {{- $system = "raspberrypi" }}
+  {{- $isRaspberryPiOS := or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) }}
+  {{- if $isRaspberryPiOS }}
+    {{- $linuxProfile = "raspberrypi" }}
   {{- else }}
-    {{- $system = output "sh" "-c" "if { command -v systemctl >/dev/null 2>&1 && [ \"$(systemctl get-default 2>/dev/null)\" = graphical.target ]; } || [ -d /usr/share/xsessions ] || [ -d /usr/share/wayland-sessions ] || { command -v dpkg-query >/dev/null 2>&1 && dpkg-query -W -f='${Status}\\n' ubuntu-desktop ubuntu-desktop-minimal xubuntu-desktop kubuntu-desktop lubuntu-desktop ubuntu-mate-desktop 2>/dev/null | grep -q 'install ok installed'; }; then printf desktop; else printf server; fi" }}
+    {{- $linuxProfile = output "sh" "-c" "if command -v dpkg-query >/dev/null 2>&1 && dpkg-query -W -f='${Status}\\n' ubuntu-desktop ubuntu-desktop-minimal xubuntu-desktop kubuntu-desktop lubuntu-desktop ubuntu-mate-desktop 2>/dev/null | grep -q 'install ok installed'; then printf desktop; elif command -v systemctl >/dev/null 2>&1 && [ \"$(systemctl get-default 2>/dev/null)\" = graphical.target ] && systemctl list-unit-files display-manager.service 2>/dev/null | grep -q display-manager.service; then printf desktop; else printf server; fi" }}
   {{- end }}
 {{- end }}
 
-{{ if ne .chezmoi.os "darwin" -}}
+{{ if not $isDarwin -}}
 .Brewfile
 .config/karabiner/**
 {{ end -}}
 
-{{ if or (eq .chezmoi.os "darwin") (eq $system "server") -}}
+{{ if or $isDarwin (eq $linuxProfile "server") -}}
 .config/autostart/**
 .config/systemd/user/rgb-load.service
 .config/systemd/user/rgb-load.timer
@@ -32,7 +35,7 @@
 .xprofile
 {{ end -}}
 
-{{ if eq $system "raspberrypi" -}}
+{{ if eq $linuxProfile "raspberrypi" -}}
 .config/autostart/**
 .config/systemd/user/rgb-load.service
 .config/systemd/user/rgb-load.timer

@@ -1,12 +1,41 @@
-{{ if eq .chezmoi.os "darwin" -}}
+{{- $isDarwin := eq .chezmoi.os "darwin" }}
+{{- $isLinux := eq .chezmoi.os "linux" }}
+{{- $linuxProfile := "desktop" }}
+{{- if $isLinux }}
+  {{- $osID := .chezmoi.osRelease.id }}
+  {{- $osName := "" }}
+  {{- $osPrettyName := "" }}
+  {{- if hasKey .chezmoi.osRelease "name" }}
+    {{- $osName = .chezmoi.osRelease.name }}
+  {{- end }}
+  {{- if hasKey .chezmoi.osRelease "prettyName" }}
+    {{- $osPrettyName = .chezmoi.osRelease.prettyName }}
+  {{- end }}
+  {{- $isRaspberryPiOS := or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) }}
+  {{- if $isRaspberryPiOS }}
+    {{- $linuxProfile = "raspberrypi" }}
+  {{- else }}
+    {{- $linuxProfile = output "sh" "-c" "if command -v dpkg-query >/dev/null 2>&1 && dpkg-query -W -f='${Status}\\n' ubuntu-desktop ubuntu-desktop-minimal xubuntu-desktop kubuntu-desktop lubuntu-desktop ubuntu-mate-desktop 2>/dev/null | grep -q 'install ok installed'; then printf desktop; elif command -v systemctl >/dev/null 2>&1 && [ \"$(systemctl get-default 2>/dev/null)\" = graphical.target ] && systemctl list-unit-files display-manager.service 2>/dev/null | grep -q display-manager.service; then printf desktop; else printf server; fi" }}
+  {{- end }}
+{{- end }}
+
+{{ if $isDarwin -}}
 # macOS: Homebrew shellenv
 eval "$(/opt/homebrew/bin/brew shellenv)"
-{{ else if eq .chezmoi.os "linux" -}}
+{{ else if $isLinux -}}
 # Linuxbrew shellenv
 if [ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 fi
 
+{{ if eq $linuxProfile "server" -}}
+# TTY Japanese input
+if [ "$TERM" = "linux" ] && [ -z "${DISPLAY:-}" ] && [ -z "${UIM_FEP_STARTED:-}" ] && command -v uim-fep >/dev/null 2>&1; then
+    export UIM_FEP_STARTED=1
+    exec uim-fep -u mozc
+fi
+
+{{ end -}}
 if command -v setxkbmap >/dev/null 2>&1 && [ -n "${DISPLAY:-}" ]; then
     setxkbmap -option ctrl:nocaps || true
 fi
