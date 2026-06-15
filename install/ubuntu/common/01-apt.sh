@@ -36,5 +36,5 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 if command -v npm >/dev/null 2>&1; then
   echo "npm available: $(npm --version)"
 else
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y npm
+  echo "npm is not available after installing nodejs; skipping Ubuntu's npm package to avoid NodeSource dependency conflicts." >&2
 fi
