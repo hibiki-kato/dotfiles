@@ -6,6 +6,7 @@ export HOMEBREW_NO_SANDBOX_LINUX=1
 export HOMEBREW_NO_ASK=1
 
 linuxbrew_prefix="/home/linuxbrew/.linuxbrew"
+linuxbrew_shellenv='eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"'
 
 append_once() {
   local line="$1"
@@ -46,7 +47,8 @@ if ! command -v brew >/dev/null 2>&1; then
   exit 1
 fi
 
-append_once 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"' "$HOME/.zshrc"
+append_once "$linuxbrew_shellenv" "$HOME/.zprofile"
+append_once "$linuxbrew_shellenv" "$HOME/.zshrc"
 
 brew install -y \
   zsh-autocomplete \
