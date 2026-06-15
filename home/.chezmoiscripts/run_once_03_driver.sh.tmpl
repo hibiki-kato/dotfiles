@@ -6,9 +6,7 @@ echo "=== Starting driver installation for {{ .chezmoi.os }} ==="
 {{- $src := .chezmoi.sourceDir }}
 {{- $driver := printf "%s/../driver" $src }}
 {{- $system := "desktop" }}
-{{- if hasKey . "system" }}
-  {{- $system = .system }}
-{{- else if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" }}
   {{- if or (eq .chezmoi.osRelease.id "raspbian") (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
     {{- $system = "raspberrypi" }}
   {{- else if contains "server" .chezmoi.hostname }}
@@ -29,15 +27,43 @@ run_all() {
   done
 }
 
+is_raspberry_pi() {
+  [ -r /proc/device-tree/model ] && grep -qi 'raspberry pi' /proc/device-tree/model && return 0
+  [ -r /etc/os-release ] && grep -qi 'raspberry pi' /etc/os-release && return 0
+  return 1
+}
+
+detect_ubuntu_system() {
+  if { command -v systemctl >/dev/null 2>&1 && [ "$(systemctl get-default 2>/dev/null)" = "graphical.target" ]; } ||
+    [ -d /usr/share/xsessions ] ||
+    [ -d /usr/share/wayland-sessions ] ||
+    { command -v dpkg-query >/dev/null 2>&1 &&
+      dpkg-query -W -f='${Status}\n' \
+        ubuntu-desktop ubuntu-desktop-minimal xubuntu-desktop kubuntu-desktop \
+        lubuntu-desktop ubuntu-mate-desktop 2>/dev/null |
+        grep -q 'install ok installed'; }; then
+    printf '%s\n' "desktop"
+  else
+    printf '%s\n' "server"
+  fi
+}
+
 {{ if eq .chezmoi.os "darwin" -}}
 # macOS drivers (if any)
 run_all "{{ $driver }}/macos"
 
 {{ else if eq .chezmoi.os "linux" -}}
-if [ "{{ $system }}" = "raspberrypi" ]; then
+system="{{ $system }}"
+if is_raspberry_pi; then
+  system="raspberrypi"
+else
+  system="$(detect_ubuntu_system)"
+fi
+
+if [ "$system" = "raspberrypi" ]; then
   # Raspberry Pi drivers (if any)
   run_all "{{ $driver }}/raspberrypi"
-elif [ "{{ $system }}" = "server" ]; then
+elif [ "$system" = "server" ]; then
   # Ubuntu common drivers
   run_all "{{ $driver }}/ubuntu/common"
   # Ubuntu server drivers

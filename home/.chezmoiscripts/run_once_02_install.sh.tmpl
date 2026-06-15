@@ -18,19 +18,30 @@ echo "=== Starting bootstrap for {{ .chezmoi.os }} ==="
   {{- end }}
   {{- if or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
     {{- $system = "raspberrypi" }}
-  {{- else if hasKey . "system" }}
-    {{- $system = .system }}
   {{- else if contains "server" .chezmoi.hostname }}
     {{- $system = "server" }}
   {{- end }}
-{{- else if hasKey . "system" }}
-  {{- $system = .system }}
 {{- end }}
 
 is_raspberry_pi() {
   [ -r /proc/device-tree/model ] && grep -qi 'raspberry pi' /proc/device-tree/model && return 0
   [ -r /etc/os-release ] && grep -qi 'raspberry pi' /etc/os-release && return 0
   return 1
+}
+
+detect_ubuntu_system() {
+  if { command -v systemctl >/dev/null 2>&1 && [ "$(systemctl get-default 2>/dev/null)" = "graphical.target" ]; } ||
+    [ -d /usr/share/xsessions ] ||
+    [ -d /usr/share/wayland-sessions ] ||
+    { command -v dpkg-query >/dev/null 2>&1 &&
+      dpkg-query -W -f='${Status}\n' \
+        ubuntu-desktop ubuntu-desktop-minimal xubuntu-desktop kubuntu-desktop \
+        lubuntu-desktop ubuntu-mate-desktop 2>/dev/null |
+        grep -q 'install ok installed'; }; then
+    printf '%s\n' "desktop"
+  else
+    printf '%s\n' "server"
+  fi
 }
 
 # Run all *.sh in a directory (lexicographic order: 001-*, 002-*, ...)
@@ -54,6 +65,8 @@ run_all "{{ $install }}/macos"
 system="{{ $system }}"
 if is_raspberry_pi; then
   system="raspberrypi"
+else
+  system="$(detect_ubuntu_system)"
 fi
 
 if [ "$system" = "raspberrypi" ]; then

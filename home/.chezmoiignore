@@ -13,13 +13,9 @@
   {{- end }}
   {{- if or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
     {{- $system = "raspberrypi" }}
-  {{- else if hasKey . "system" }}
-    {{- $system = .system }}
-  {{- else if contains "server" .chezmoi.hostname }}
-    {{- $system = "server" }}
+  {{- else }}
+    {{- $system = output "sh" "-c" "if { command -v systemctl >/dev/null 2>&1 && [ \"$(systemctl get-default 2>/dev/null)\" = graphical.target ]; } || [ -d /usr/share/xsessions ] || [ -d /usr/share/wayland-sessions ] || { command -v dpkg-query >/dev/null 2>&1 && dpkg-query -W -f='${Status}\\n' ubuntu-desktop ubuntu-desktop-minimal xubuntu-desktop kubuntu-desktop lubuntu-desktop ubuntu-mate-desktop 2>/dev/null | grep -q 'install ok installed'; }; then printf desktop; else printf server; fi" }}
   {{- end }}
-{{- else if hasKey . "system" }}
-  {{- $system = .system }}
 {{- end }}
 
 {{ if ne .chezmoi.os "darwin" -}}

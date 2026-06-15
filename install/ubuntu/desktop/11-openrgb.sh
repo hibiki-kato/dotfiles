@@ -1,5 +1,7 @@
-#! /bin/zsh
-# set -euo pipefail
+#!/usr/bin/env zsh
+set -euo pipefail
+
+echo "OpenRGB installer is disabled; install via Flatpak if needed."
 
 # # OpenRGB was installed via flatpak.
 # # Download udev rules file

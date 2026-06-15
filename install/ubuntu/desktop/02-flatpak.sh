@@ -2,9 +2,15 @@
 set -euo pipefail
 
 sudo apt-get -y install flatpak \
-    gnome-software-plugin-flatpak
+  gnome-software-plugin-flatpak
 
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install -y flathub com.rustdesk.RustDesk
-flatpak install -y flathub io.github.jeffshee.Hidamari
-# flatpak install -y flathub org.openrgb.OpenRGB
+
+packages=(
+  com.rustdesk.RustDesk
+  io.github.jeffshee.Hidamari
+)
+
+for pkg in "${packages[@]}"; do
+  flatpak install -y flathub "$pkg"
+done

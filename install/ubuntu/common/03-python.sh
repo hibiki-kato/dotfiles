@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Install Miniforge (Conda-forge) and uv on Ubuntu Desktop
 # - Idempotent: skips if already installed
-# - Non-interactive safe: no shell init modifications here
+# - Idempotent: skips if already installed and avoids duplicate shell init lines
 
 # Detect architecture for Miniforge
 ARCH=$(uname -m)
@@ -20,11 +20,9 @@ if [[ ! -x "$MINIFORGE_DIR/bin/conda" ]]; then
 	# Use bash to avoid zsh glob pattern issues during installation
 	bash ~/miniforge.sh -b -p "$MINIFORGE_DIR"
 	rm ~/miniforge.sh
-	# Add to .zshrc if not already present
 	if ! grep -q "miniforge3/bin" ~/.zshrc; then
 		echo "export PATH=\"\$HOME/miniforge3/bin:\$PATH\"" >> ~/.zshrc
 	fi
 fi
 
-# Hints (do not modify user shell files here)
 echo "Miniforge path: $MINIFORGE_DIR (conda available)"

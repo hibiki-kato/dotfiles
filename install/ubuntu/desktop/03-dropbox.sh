@@ -2,6 +2,10 @@
 set -euo pipefail
 
 # Install Dropbox for Ubuntu Desktop via official .deb package
+if [[ "$(uname -m)" != "x86_64" ]]; then
+  echo "Dropbox .deb installer is amd64-only; skipping on $(uname -m)."
+  exit 0
+fi
 
 DEB_URL="https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2025.05.20_amd64.deb"
 DEB_FILE="/tmp/dropbox.deb"

@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
-# Install snap packages for Ubuntu Desktop.
+# Install snap packages for Ubuntu.
 if ! command -v snap >/dev/null 2>&1; then
   sudo apt-get update -y || true
   sudo DEBIAN_FRONTEND=noninteractive apt-get install -y snapd
@@ -13,39 +13,10 @@ if ! command -v snap >/dev/null 2>&1; then
   return 0 2>/dev/null || exit 0
 fi
 
-packages=(
-  brave
-  zotero-snap
-  chatgpt-desktop
-  bitwarden
-  bw
-  surfshark
-  steam
-  discord
-  docker
-  spotify
-  mission-center
-  gimp
-  obs-studio
-  zoom-client
-  dropboxignore
-  localsend
-  slack
-  drawio
-)
-
-for pkg in "${packages[@]}"; do
-  if snap list "$pkg" >/dev/null 2>&1; then
-    echo "snap '$pkg' already installed"
-  else
-    echo "Installing snap '$pkg'..."
-    sudo snap install "$pkg"
-  fi
-done
-
 # classic installs
 classic_packages=(
-  # code
+  astral-uv
+  yazi
 )
 
 for pkg in "${classic_packages[@]}"; do
