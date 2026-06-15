@@ -22,11 +22,6 @@ export PATH="$HOME/.local/bin:$PATH"
 # Juliaup
 export PATH="$HOME/.juliaup/bin:$PATH"
 
-# Linuxbrew
-if [ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
-fi
-
 # Safer rm when a trash command is available
 if command -v trash >/dev/null 2>&1; then
     alias rm='trash'
@@ -95,6 +90,11 @@ alias claude-mem='$HOME/.bun/bin/bun "$HOME/.claude/plugins/marketplaces/thedotm
 
 {{ else if eq .chezmoi.os "linux" -}}
 # === Linux specific settings ===
+
+# Linuxbrew
+if [ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+fi
 
 {{ if eq $system "raspberrypi" -}}
 # Raspberry Pi specific settings
