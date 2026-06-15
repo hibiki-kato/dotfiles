@@ -10,10 +10,8 @@
   {{- if hasKey .chezmoi.osRelease "prettyName" }}
     {{- $osPrettyName = .chezmoi.osRelease.prettyName }}
   {{- end }}
-  {{- if or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
+  {{- if or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) }}
     {{- $system = "raspberrypi" }}
-  {{- else if contains "server" .chezmoi.hostname }}
-    {{- $system = "server" }}
   {{- end }}
 {{- end }}
 

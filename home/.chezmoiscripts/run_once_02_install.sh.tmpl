@@ -5,7 +5,7 @@ echo "=== Starting bootstrap for {{ .chezmoi.os }} ==="
 
 {{- $src := .chezmoi.sourceDir }}
 {{- $install := printf "%s/../install" $src }}
-{{- $system := "desktop" }}
+{{- $system := "server" }}
 {{- if eq .chezmoi.os "linux" }}
   {{- $osID := .chezmoi.osRelease.id }}
   {{- $osName := "" }}
@@ -16,31 +16,50 @@ echo "=== Starting bootstrap for {{ .chezmoi.os }} ==="
   {{- if hasKey .chezmoi.osRelease "prettyName" }}
     {{- $osPrettyName = .chezmoi.osRelease.prettyName }}
   {{- end }}
-  {{- if or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) (contains "raspberrypi" .chezmoi.hostname) (contains "raspi" .chezmoi.hostname) }}
+  {{- if or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) }}
     {{- $system = "raspberrypi" }}
-  {{- else if contains "server" .chezmoi.hostname }}
-    {{- $system = "server" }}
   {{- end }}
 {{- end }}
 
 is_raspberry_pi() {
-  [ -r /proc/device-tree/model ] && grep -qi 'raspberry pi' /proc/device-tree/model && return 0
-  [ -r /etc/os-release ] && grep -qi 'raspberry pi' /etc/os-release && return 0
+  [ -r /etc/os-release ] && grep -Eqi '^(ID=raspbian|ID_LIKE=.*raspbian|PRETTY_NAME=.*raspberry pi)' /etc/os-release && return 0
   return 1
 }
 
 detect_ubuntu_system() {
-  if { command -v systemctl >/dev/null 2>&1 && [ "$(systemctl get-default 2>/dev/null)" = "graphical.target" ]; } ||
-    [ -d /usr/share/xsessions ] ||
-    [ -d /usr/share/wayland-sessions ] ||
-    { command -v dpkg-query >/dev/null 2>&1 &&
-      dpkg-query -W -f='${Status}\n' \
-        ubuntu-desktop ubuntu-desktop-minimal xubuntu-desktop kubuntu-desktop \
-        lubuntu-desktop ubuntu-mate-desktop 2>/dev/null |
-        grep -q 'install ok installed'; }; then
+  if command -v dpkg-query >/dev/null 2>&1 &&
+    dpkg-query -W -f='${Status}\n' \
+      ubuntu-desktop ubuntu-desktop-minimal xubuntu-desktop kubuntu-desktop \
+      lubuntu-desktop ubuntu-mate-desktop 2>/dev/null |
+      grep -q 'install ok installed'; then
+    printf '%s\n' "desktop"
+  elif command -v systemctl >/dev/null 2>&1 &&
+    [ "$(systemctl get-default 2>/dev/null)" = "graphical.target" ] &&
+    systemctl list-unit-files 'display-manager.service' 2>/dev/null | grep -q 'display-manager.service'; then
     printf '%s\n' "desktop"
   else
     printf '%s\n' "server"
+  fi
+}
+
+select_linux_system() {
+  case "${CHEZMOI_INSTALL_PROFILE:-}" in
+    desktop|server|raspberrypi|raspi)
+      [ "$CHEZMOI_INSTALL_PROFILE" = "raspi" ] && printf '%s\n' "raspberrypi" || printf '%s\n' "$CHEZMOI_INSTALL_PROFILE"
+      return 0
+      ;;
+    "")
+      ;;
+    *)
+      echo "Unsupported CHEZMOI_INSTALL_PROFILE: $CHEZMOI_INSTALL_PROFILE" >&2
+      exit 1
+      ;;
+  esac
+
+  if is_raspberry_pi; then
+    printf '%s\n' "raspberrypi"
+  else
+    detect_ubuntu_system
   fi
 }
 
@@ -52,7 +71,7 @@ run_all() {
   for f in $(LC_ALL=C ls -1 "$dir"/*.sh 2>/dev/null | sort); do
     [ -f "$f" ] || continue
     [ -x "$f" ] || chmod +x "$f" || true
-    echo "→ Running: $(basename "$f")"
+    echo "→ Running: $f"
     "$f"
   done
 }
@@ -63,11 +82,8 @@ run_all "{{ $install }}/macos"
 
 {{ else if eq .chezmoi.os "linux" -}}
 system="{{ $system }}"
-if is_raspberry_pi; then
-  system="raspberrypi"
-else
-  system="$(detect_ubuntu_system)"
-fi
+system="$(select_linux_system)"
+echo "Selected install profile: $system"
 
 if [ "$system" = "raspberrypi" ]; then
   # Raspberry Pi lightweight installers

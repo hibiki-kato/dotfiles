@@ -34,7 +34,7 @@ winget install --id=twpayne.chezmoi  -e
 chezmoi init --apply hibiki-kato
 ```
 
-Raspberry Pi では `/etc/os-release` が `raspbian` を返すか、ホスト名に `raspberrypi` / `raspi` が含まれる場合に自動検出される。Ubuntu は GUI 環境の有無で `desktop` / `server` を自動判定し、`common` と該当プロファイルを実行する。
+Raspberry Pi OS では `/etc/os-release` が `raspbian` / Raspberry Pi 系を返す場合に `raspberrypi` profile が選ばれる。Raspberry Pi 上でも Ubuntu の場合は Ubuntu として扱い、GUI 環境の有無で `desktop` / `server` を自動判定して `common` と該当プロファイルを実行する。
 
 ---
 
