@@ -32,11 +32,8 @@ fi
 # TTY Japanese input
 if [ "$TERM" = "linux" ] && [ -z "${DISPLAY:-}" ] && [ -z "${UIM_FEP_STARTED:-}" ] && command -v uim-fep >/dev/null 2>&1; then
     export UIM_FEP_STARTED=1
-    exec uim-fep -u mozc -e "zsh -l"
+    exec uim-fep -u mozc
 fi
-
-# byobu auto-launch
-_byobu_sourced=1 . /usr/bin/byobu-launch 2>/dev/null || true
 
 {{ end -}}
 if command -v setxkbmap >/dev/null 2>&1 && [ -n "${DISPLAY:-}" ]; then

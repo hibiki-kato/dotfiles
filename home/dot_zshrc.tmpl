@@ -122,6 +122,12 @@ export OS_NAME=RaspberryPi
 # Ubuntu specific settings
 export OS_NAME=Linux
 
+# Fix byobu/tmux F-keys on physical Linux console
+[[ "$TERM" == "linux" ]] && export TERM=xterm-256color
+
+# byobu auto-launch (works on both SSH and TTY via uim-fep)
+[[ -z "$TMUX" ]] && _byobu_sourced=1 . /usr/bin/byobu-launch 2>/dev/null || true
+
 # Miniforge (Conda-forge) initialization
 if [ -x "$HOME/miniforge3/bin/conda" ]; then
     __conda_setup="$('$HOME/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
