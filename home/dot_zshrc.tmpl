@@ -48,6 +48,10 @@ fi
 # Julia thread count
 export JULIA_NUM_THREADS=auto
 
+# Homebrew C/C++ compiler
+export HOMEBREW_CC=gcc
+export HOMEBREW_CXX=g++
+
 {{ if $isDarwin -}}
 # === macOS specific settings ===
 
@@ -73,10 +77,6 @@ export CPPFLAGS="-I/opt/homebrew/opt/lapack/include"
 
 # OS name
 export OS_NAME=Darwin
-
-# Homebrew C/C++ compiler
-export HOMEBREW_CC=gcc
-export HOMEBREW_CXX=g++
 
 # Docker settings
 export DOCKER_BUILDKIT=1
