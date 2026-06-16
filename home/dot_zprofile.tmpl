@@ -35,6 +35,9 @@ if [ "$TERM" = "linux" ] && [ -z "${DISPLAY:-}" ] && [ -z "${UIM_FEP_STARTED:-}"
     exec uim-fep -u mozc
 fi
 
+# byobu auto-launch
+_byobu_sourced=1 . /usr/bin/byobu-launch 2>/dev/null || true
+
 {{ end -}}
 if command -v setxkbmap >/dev/null 2>&1 && [ -n "${DISPLAY:-}" ]; then
     setxkbmap -option ctrl:nocaps || true
