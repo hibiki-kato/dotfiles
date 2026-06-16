@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+set -u
+
+usage() {
+  cat >&2 <<'EOF'
+usage: mpv-vt [mpv options] FILE_OR_URL...
+
+Run mpv on a temporary Linux VT using DRM/KMS, then return to the
+current kmscon/byobu VT when mpv exits. Press q in mpv to close.
+EOF
+}
+
+if [ "$#" -eq 0 ]; then
+  usage
+  exit 2
+fi
+
+if ! command -v mpv >/dev/null 2>&1; then
+  echo "mpv-vt: mpv not found" >&2
+  exit 127
+fi
+
+if sudo -n true 2>/dev/null; then
+  :
+elif [ -t 0 ] && sudo -v; then
+  :
+else
+  echo "mpv-vt: sudo is required for openvt/chvt" >&2
+  exit 1
+fi
+
+user_name=${USER:-$(id -un)}
+user_home=${HOME:-$(getent passwd "$user_name" | cut -d: -f6)}
+user_uid=$(id -u "$user_name")
+runtime_dir=${XDG_RUNTIME_DIR:-/run/user/$user_uid}
+orig_vt=
+
+if command -v fgconsole >/dev/null 2>&1; then
+  orig_vt=$(sudo -n fgconsole 2>/dev/null || true)
+fi
+
+return_to_vt() {
+  if [ -n "$orig_vt" ]; then
+    sudo -n chvt "$orig_vt" >/dev/null 2>&1 || true
+  fi
+}
+
+trap return_to_vt EXIT HUP INT TERM
+
+mpv_args=(
+  --vo=gpu
+  --gpu-context=drm
+  --fullscreen
+  --hwdec=no
+  --keep-open=yes
+  --image-display-duration=inf
+)
+
+if [ -n "${MPV_VT_LOG:-}" ]; then
+  mpv_args+=(--log-file="$MPV_VT_LOG")
+fi
+
+sudo -n openvt -s -w -- \
+  /usr/sbin/runuser -u "$user_name" -- \
+  env \
+    HOME="$user_home" \
+    USER="$user_name" \
+    LOGNAME="$user_name" \
+    XDG_RUNTIME_DIR="$runtime_dir" \
+    PATH="$PATH" \
+    mpv "${mpv_args[@]}" "$@"

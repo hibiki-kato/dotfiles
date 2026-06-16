@@ -36,6 +36,10 @@
 .xprofile
 {{ end -}}
 
+{{ if ne $linuxProfile "server" -}}
+.local/bin/mpv-vt
+{{ end -}}
+
 {{ if eq $linuxProfile "raspberrypi" -}}
 .config/autostart/**
 .config/systemd/user/rgb-load.service

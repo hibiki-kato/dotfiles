@@ -15,4 +15,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   uim-fep \
   uim-mozc \
   mozc-server \
+  mpv \
+  kbd \
   fonts-noto-cjk
