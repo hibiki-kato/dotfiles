@@ -1,5 +1,31 @@
 -- ~/.config/nvim/lua/plugins.lua
 return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    opts = {
+      ensure_installed = {
+        "html",
+        "latex",
+        "markdown",
+        "markdown_inline",
+        "typst",
+        "yaml",
+      },
+      highlight = {
+        enable = true,
+      },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
+  },
+
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+  },
+
   -- スニペット本体
   {
     "L3MON4D3/LuaSnip",

@@ -38,6 +38,13 @@ elif command -v trash-put >/dev/null 2>&1; then
     alias rm='trash-put'
 fi
 
+# Editor aliases
+if command -v nvim >/dev/null 2>&1; then
+    alias vi='nvim'
+    alias vim='nvim'
+    alias view='nvim -R'
+fi
+
 # Julia thread count
 export JULIA_NUM_THREADS=auto
 
@@ -125,8 +132,10 @@ export OS_NAME=Linux
 # Fix byobu/tmux F-keys on physical Linux console
 [[ "$TERM" == "linux" ]] && export TERM=xterm-256color
 
-# byobu auto-launch (works on both SSH and TTY via uim-fep)
-[[ -z "$TMUX" ]] && _byobu_sourced=1 . /usr/bin/byobu-launch 2>/dev/null || true
+# Auto-start byobu on interactive login shells, but return to zsh when byobu exits.
+if [[ -o interactive && -z "$TMUX" && -z "$BYOBU_BACKEND" ]]; then
+    byobu
+fi
 
 # Miniforge (Conda-forge) initialization
 if [ -x "$HOME/miniforge3/bin/conda" ]; then
