@@ -32,7 +32,7 @@ fi
 # TTY Japanese input
 if [ "$TERM" = "linux" ] && [ -z "${DISPLAY:-}" ] && [ -z "${UIM_FEP_STARTED:-}" ] && command -v uim-fep >/dev/null 2>&1; then
     export UIM_FEP_STARTED=1
-    exec uim-fep -u mozc
+    exec uim-fep -u mozc -e "zsh -l"
 fi
 
 # byobu auto-launch
