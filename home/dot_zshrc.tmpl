@@ -16,6 +16,8 @@
   {{- $isRaspberryPiOS := or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) }}
   {{- if $isRaspberryPiOS }}
     {{- $linuxProfile = "raspberrypi" }}
+  {{- else }}
+    {{- $linuxProfile = output "sh" "-c" "if command -v dpkg-query >/dev/null 2>&1 && dpkg-query -W -f='${Status}\\n' ubuntu-desktop ubuntu-desktop-minimal xubuntu-desktop kubuntu-desktop lubuntu-desktop ubuntu-mate-desktop 2>/dev/null | grep -q 'install ok installed'; then printf desktop; elif command -v systemctl >/dev/null 2>&1 && [ \"$(systemctl get-default 2>/dev/null)\" = graphical.target ] && systemctl list-unit-files display-manager.service 2>/dev/null | grep -q display-manager.service; then printf desktop; else printf server; fi" }}
   {{- end }}
 {{- end }}
 
@@ -23,6 +25,8 @@
 export PATH="$HOME/.elan/bin:$PATH"
 # Local user binaries (e.g., uv installs here)
 export PATH="$HOME/.local/bin:$PATH"
+# npm global packages (codex, openclaw, gemini, etc.)
+export PATH="$HOME/.npm-global/bin:$PATH"
 # Juliaup
 export PATH="$HOME/.juliaup/bin:$PATH"
 # Rust/Cargo
@@ -46,8 +50,46 @@ if command -v nvim >/dev/null 2>&1; then
     alias view='nvim -R'
 fi
 
-# Ollama shortcuts
-alias gemma='ollama run gemma4'
+{{ if and $isLinux (eq $linuxProfile "desktop") -}}
+# Ollama shortcuts (Ubuntu desktop only)
+unalias gemma 2>/dev/null || true
+gemma() {
+    local started_ollama=0
+    local ollama_pid=""
+    local exit_code=0
+
+    if ! curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+        ollama serve >/tmp/ollama-gemma.log 2>&1 &
+        ollama_pid=$!
+        started_ollama=1
+
+        for _ in {1..50}; do
+            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+                break
+            fi
+            sleep 0.2
+        done
+
+        if ! curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+            echo "Failed to start ollama serve. See /tmp/ollama-gemma.log" >&2
+            kill "$ollama_pid" >/dev/null 2>&1 || true
+            wait "$ollama_pid" >/dev/null 2>&1 || true
+            return 1
+        fi
+    fi
+
+    ollama run gemma4 --experimental --experimental-websearch "$@"
+    exit_code=$?
+
+    if [ "$started_ollama" -eq 1 ]; then
+        ollama stop gemma4 >/dev/null 2>&1 || true
+        kill "$ollama_pid" >/dev/null 2>&1 || true
+        wait "$ollama_pid" >/dev/null 2>&1 || true
+    fi
+
+    return "$exit_code"
+}
+{{ end -}}
 
 # Julia thread count
 export JULIA_NUM_THREADS=auto
