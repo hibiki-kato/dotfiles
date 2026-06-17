@@ -1,2 +1,2 @@
 # Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
-xrandr --output DP-0 --primary --mode 2560x1440 --rate 100 --output HDMI-0 --mode 2560x1440 --rate 100 --right-of DP-0
+xrandr --auto

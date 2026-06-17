@@ -8,4 +8,16 @@ if command -v setxkbmap >/dev/null 2>&1 && [ -n "${DISPLAY:-}" ]; then
     # convert caps lock to ctrl
     setxkbmap -option ctrl:nocaps || true
 fi
+
+# >>> juliaup initialize >>>
+# !! Contents within this block are managed by juliaup !!
+case ":$PATH:" in
+    *:/home/hibiki/.juliaup/bin:*)
+        ;;
+    *)
+        export PATH=/home/hibiki/.juliaup/bin${PATH:+:${PATH}}
+        ;;
+esac
+# <<< juliaup initialize <<<
+[ -r "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 {{ end -}}
