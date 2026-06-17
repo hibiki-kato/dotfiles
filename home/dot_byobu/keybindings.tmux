@@ -11,6 +11,8 @@ bind-key -T pane-nav Down  select-pane -D \; switch-client -T pane-nav
 bind-key -T pane-nav Left  select-pane -L \; switch-client -T pane-nav
 bind-key -T pane-nav Right select-pane -R \; switch-client -T pane-nav
 
-set -g prefix C-b
+unbind-key -n C-a
+unbind-key -n C-b
+set -g prefix ^B
 set -g prefix2 F12
 bind b send-prefix
