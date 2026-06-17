@@ -42,4 +42,5 @@ brew install -y \
   zsh-history-substring-search \
   atuin \
   starship \
-  glow
+  glow \
+  tree-sitter-cli

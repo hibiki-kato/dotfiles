@@ -1,8 +1,8 @@
--- Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 -- ~/.config/nvim/lua/plugins.lua
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     build = ":TSUpdate",
     opts = {
       ensure_installed = {
@@ -18,6 +18,8 @@ return {
       },
     },
     config = function(_, opts)
+      local install = require("nvim-treesitter.install")
+      install.ts_generate_args = { "generate", "--abi", vim.treesitter.language_version }
       require("nvim-treesitter.configs").setup(opts)
     end,
   },
@@ -25,6 +27,23 @@ return {
   {
     "OXY2DEV/markview.nvim",
     lazy = false,
+  },
+
+  {
+    "github/copilot.vim",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    init = function()
+      vim.g.copilot_no_tab_map = true
+    end,
+    config = function()
+      vim.keymap.set(
+        "i",
+        "<C-J>",
+        'copilot#Accept("\\<CR>")',
+        { expr = true, replace_keycodes = false, silent = true }
+      )
+    end,
   },
 
   -- スニペット本体
