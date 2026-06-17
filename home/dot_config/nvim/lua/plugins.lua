@@ -1,3 +1,4 @@
+-- Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 -- ~/.config/nvim/lua/plugins.lua
 return {
   {

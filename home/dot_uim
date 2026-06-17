@@ -1,3 +1,4 @@
+; Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 (define default-im-name 'mozc)
 (define-key generic-on-key? '("<Control> "))
 (define-key generic-off-key? '("<Control> "))

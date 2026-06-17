@@ -1,3 +1,4 @@
+-- Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 -- ~/.config/nvim/init.lua
 
 -- 基本オプション（最低限）

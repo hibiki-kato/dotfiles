@@ -1,3 +1,4 @@
+# Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 # ~/.bash_logout: executed by bash(1) when login shell exits.
 
 # when leaving the console clear the screen to increase privacy

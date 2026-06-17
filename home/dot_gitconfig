@@ -1,3 +1,4 @@
+# Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 [user]
 	name = hibiki-kato
 	email = katohibiki17@gmail.com

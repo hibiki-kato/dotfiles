@@ -1,3 +1,4 @@
+# Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 bind-key -n C-t new-window -c "#{pane_current_path}" \; rename-window "-"
 bind-key -n F5 display-panes \; split-window -h -c "#{pane_current_path}"
 bind-key -n F6 display-panes \; split-window -v -c "#{pane_current_path}"

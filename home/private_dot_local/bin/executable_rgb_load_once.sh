@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 set -euo pipefail
 
 # 平滑化(EMA) 係数: alpha = ALPHA_NUM/ALPHA_DEN

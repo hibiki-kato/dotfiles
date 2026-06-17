@@ -1,3 +1,4 @@
+# Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 # im-config(8) generated on Fri, 31 Oct 2025 16:45:06 -0400
 run_im fcitx5
 # im-config signature: 5d89b7c32edfed8e5b422615622aa681  -

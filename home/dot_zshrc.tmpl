@@ -1,3 +1,4 @@
+# Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 # Common settings (all platforms)
 {{- $isDarwin := eq .chezmoi.os "darwin" }}
 {{- $isLinux := eq .chezmoi.os "linux" }}
@@ -44,6 +45,9 @@ if command -v nvim >/dev/null 2>&1; then
     alias vim='nvim'
     alias view='nvim -R'
 fi
+
+# Ollama shortcuts
+alias gemma='ollama run gemma4'
 
 # Julia thread count
 export JULIA_NUM_THREADS=auto
@@ -129,13 +133,16 @@ export OS_NAME=RaspberryPi
 # Ubuntu specific settings
 export OS_NAME=Linux
 
+{{ if eq $linuxProfile "server" -}}
 # Fix byobu/tmux F-keys on physical Linux console
 [[ "$TERM" == "linux" ]] && export TERM=xterm-256color
 
 # Auto-start byobu on interactive login shells, but return to zsh when byobu exits.
-if [[ -o interactive && -z "$TMUX" && -z "$BYOBU_BACKEND" ]]; then
+if [[ -o interactive && -z "$TMUX" && -z "$BYOBU_BACKEND" ]] && command -v byobu >/dev/null 2>&1; then
     byobu
 fi
+
+{{ end -}}
 
 # Miniforge (Conda-forge) initialization
 if [ -x "$HOME/miniforge3/bin/conda" ]; then
