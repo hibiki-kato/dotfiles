@@ -1,4 +1,3 @@
--- Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 -- ~/.config/nvim/init.lua
 
 -- 基本オプション（最低限）
@@ -9,6 +8,15 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.termguicolors = true
+vim.opt.clipboard = "unnamedplus"
+
+-- 🎨 【ユーザビリティ】表示に関する設定
+vim.opt.autoindent = true     -- 自動インデントを有効にする
+vim.opt.hlsearch = true       -- 検索ヒット箇所をハイライトする
+
+-- 📘 【その他】
+vim.opt.encoding = "utf-8"   -- エンコーディングをUTF-8に固定
+vim.opt.smartindent = true    -- スマートインデントを有効にする
 
 -- ★ Insertモードで "jj" を ESC に
 vim.keymap.set("i", "jj", "<Esc>", { noremap = true })
