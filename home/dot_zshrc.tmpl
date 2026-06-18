@@ -161,7 +161,18 @@ fi
 # Zsh tools installed by Linuxbrew
 if command -v brew >/dev/null 2>&1; then
     _zsh_history_substring_search="$(brew --prefix 2>/dev/null)/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
-    [ -r "$_zsh_history_substring_search" ] && source "$_zsh_history_substring_search"
+    if [ -r "$_zsh_history_substring_search" ]; then
+        source "$_zsh_history_substring_search"
+        # Keep the selected history entry when moving the cursor horizontally.
+        bindkey '^[[A' history-substring-search-up
+        bindkey '^[[B' history-substring-search-down
+        bindkey '^[OA' history-substring-search-up
+        bindkey '^[OB' history-substring-search-down
+        bindkey '^[[D' backward-char
+        bindkey '^[[C' forward-char
+        bindkey '^[OD' backward-char
+        bindkey '^[OC' forward-char
+    fi
     unset _zsh_history_substring_search
 fi
 command -v atuin >/dev/null 2>&1 && eval "$(atuin init zsh)"
