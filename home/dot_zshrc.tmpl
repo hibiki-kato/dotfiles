@@ -78,11 +78,11 @@ gemma() {
         fi
     fi
 
-    ollama run gemma4 --experimental --experimental-websearch "$@"
+    ollama run gemma4:12b --experimental --experimental-websearch "$@"
     exit_code=$?
 
     if [ "$started_ollama" -eq 1 ]; then
-        ollama stop gemma4 >/dev/null 2>&1 || true
+        ollama stop gemma4:12b >/dev/null 2>&1 || true
         kill "$ollama_pid" >/dev/null 2>&1 || true
         wait "$ollama_pid" >/dev/null 2>&1 || true
     fi
