@@ -38,3 +38,6 @@ else
   echo "Warning: Homebrew gcc not found, skipping cpp symlinks" >&2
 fi
 unset _gcc_bin _gxx_bin
+
+# java
+ensure_link $ sudo ln -sfn $(brew --prefix)/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
