@@ -11,6 +11,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   bluez \
   bluetooth \
   fzf \
+  playerctl \
+  triggerhappy \
   kmscon \
   locales \
   uim \
