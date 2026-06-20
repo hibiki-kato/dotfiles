@@ -1,4 +1,7 @@
-{{- $isDarwin := eq .chezmoi.os "darwin" -}}
+{{- $ghPath := "/usr/bin/gh" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{- $ghPath = "/opt/homebrew/bin/gh" -}}
+{{- end -}}
 # Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 [user]
 	name = hibiki-kato
@@ -7,15 +10,7 @@
 	defaultBranch = main
 [credential "https://github.com"]
 	helper =
-{{- if $isDarwin }}
-	helper = !/opt/homebrew/bin/gh auth git-credential
-{{- else }}
-	helper = !/usr/bin/gh auth git-credential
-{{- end }}
+	helper = !{{ $ghPath }} auth git-credential
 [credential "https://gist.github.com"]
 	helper =
-{{- if $isDarwin }}
-	helper = !/opt/homebrew/bin/gh auth git-credential
-{{- else }}
-	helper = !/usr/bin/gh auth git-credential
-{{- end }}
+	helper = !{{ $ghPath }} auth git-credential
