@@ -1,132 +1,377 @@
-# Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
-tap "browsh-org/browsh"
-tap "deskflow/tap"
-tap "krishkrosh/apps"
-tap "tldev/tap"
+tap "lizardbyte/homebrew", "https://github.com/LizardByte/homebrew-homebrew", trusted: true
+# Protocol buffers (Google's data interchange format)
 brew "protobuf"
+# Interpreted, interactive, object-oriented programming language
 brew "python@3.14"
+# Columnar in-memory analytics layer designed to accelerate big data
 brew "apache-arrow"
+# ARP scanning and fingerprinting tool
 brew "arp-scan"
-brew "asitop"
+# Backend processor for BibLaTeX
 brew "biber"
+# Open-source, cross-platform JavaScript runtime environment
 brew "node"
+# Secure and free password manager for all of your devices
 brew "bitwarden-cli"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
+# Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
+# Formatting tools for C, C++, Obj-C, Java, JavaScript, TypeScript
 brew "clang-format"
+# Cross-platform make
 brew "cmake"
+# Dependency manager for Cocoa projects
 brew "cocoapods"
+# Plays typewriter sounds every time you press a key
 brew "daktilo"
+# File comparison utilities
 brew "diffutils"
+# C++ template library for linear algebra
 brew "eigen"
+# Lean Theorem Prover installer and version manager
 brew "elan-init"
+# Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
+# Interpreted, interactive, object-oriented programming language
 brew "python@3.13"
+# Fortran language server
 brew "fortls"
+# Implementation of the Unicode BiDi algorithm
 brew "fribidi"
+# Monitor a directory for changes and run a shell command
 brew "fswatch"
+# C library for multiple-precision floating-point computations
 brew "mpfr"
+# GNU compiler collection
 brew "gcc"
+# TIFF library and utilities
 brew "libtiff"
+# Interact with Google Gemini AI models from the command-line
 brew "gemini-cli"
+# GFF/GTF format conversions, region filtering, FASTA sequence extraction
 brew "gffread"
+# OpenType text shaping engine
 brew "harfbuzz"
+# OCR (Optical Character Recognition) engine
 brew "tesseract"
+# Interpreter for PostScript and PDF
 brew "ghostscript"
+# Distributed revision control system
 brew "git"
+# Quickly rewrite git repository history
 brew "git-filter-repo"
+# Command-driven, interactive function plotting
 brew "gnuplot"
+# Package compiler and linker metadata toolkit
 brew "pkgconf"
+# GNU grep, egrep and fgrep
 brew "grep"
+# File format designed to store large amounts of data
 brew "hdf5"
+# Improved top (interactive process viewer)
 brew "htop"
+# Comprehensive RPC framework
 brew "ice"
+# C/C++ and Java libraries for Unicode and globalization
 brew "icu4c@77"
+# USB multiplexor library for iOS devices
 brew "libusbmuxd"
+# Library to communicate with iOS devices natively
 brew "libimobiledevice", args: ["HEAD"]
+# Tool for managing apps on iOS devices
 brew "ideviceinstaller"
+# Tools and libraries to manipulate images in select formats
 brew "imagemagick"
+# Julia installer and version multiplexer
 brew "juliaup"
+# Network authentication protocol
 brew "krb5"
+# Linear Algebra PACKage
 brew "lapack"
+# LLVM's OpenMP runtime library
 brew "libomp"
+# Mac App Store command-line interface
 brew "mas"
+# Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# Development kit for the Java programming language
+brew "openjdk"
+# Reproducible scientific workflows
+brew "nextflow"
+# Small build system for use with gyp or CMake
 brew "ninja"
+# Port scanning utility for large networks
 brew "nmap"
+# Package for scientific computing with Python
 brew "numpy"
+# High performance message passing library
 brew "open-mpi"
+# Swiss-army knife of markup format conversion
 brew "pandoc"
+# PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Presenter console with multi-monitor support for PDF files
 brew "pdfpc"
+# Python library for creating static, animated, and interactive visualizations
 brew "python-matplotlib"
+# Software environment for statistical computing
 brew "r", link: false
+# Rsync for cloud storage
 brew "rclone"
+# Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Command driven spotify player
+brew "spotify_player"
+# Easiest, most secure way to use WireGuard and 2FA
 brew "tailscale"
+# Extremely fast LaTeX formatter written in Rust
 brew "tex-fmt"
+# Free software distribution for the TeX typesetting system
 brew "texlive"
+# Terminal multiplexer
 brew "tmux"
+# CLI tool that moves files or folder to the trash
 brew "trash", link: true
+# Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
+# Internet file retriever
 brew "wget"
+# General-purpose lossless data-compression library
 brew "zlib"
+# Fish-like fast/unobtrusive autosuggestions for zsh
+brew "zsh-autosuggestions"
+# Self-hosted game stream host for Moonlight
+brew "lizardbyte/homebrew/sunshine"
+# View, print, and comment on PDF documents
 cask "adobe-acrobat-reader"
+# Collection of apps and services for photography, design, video, web, and UX
 cask "adobe-creative-cloud"
+# Agent orchestration platform
 cask "antigravity"
+# Multi-track audio editor and recorder
 cask "audacity"
+# Tool to flash OS images to SD cards & USB drives
 cask "balenaetcher"
+# Virtual Audio Driver
 cask "blackhole-2ch"
+# Web browser focusing on privacy
 cask "brave-browser"
+# OpenAI's official ChatGPT desktop app
 cask "chatgpt"
+# OpenAI's official browser with ChatGPT built in
+cask "chatgpt-atlas"
+# Remotely access another computer through the Google Chrome browser
 cask "chrome-remote-desktop-host"
+# Recover lost data
 cask "cisdem-data-recovery"
+# Anthropic's official Claude AI desktop app
 cask "claude"
+# Terminal-based AI coding assistant
 cask "claude-code"
+# OpenAI's coding agent that runs in your terminal
 cask "codex"
-cask "deskflow/tap/deskflow"
+# Voice and text chat software
 cask "discord"
+# App to build and share containerised applications and microservices
 cask "docker-desktop"
-cask "dorso"
+# Emulator to play GameCube and Wii games
+cask "dolphin"
+# Online diagram software
 cask "drawio"
+# Client for the Dropbox cloud storage service
 cask "dropbox"
+# Cross-platform Text Expander written in Rust
 cask "espanso"
+# Web browser
 cask "firefox"
+# App and website blocker
 cask "freedom"
+# Update maps and software, sync with Garmin Connect and register your device
 cask "garmin-express"
+# Tool to measure the computer system's performance
 cask "geekbench"
+# Free and open-source image editor
 cask "gimp"
+# Client for the Google Drive storage service
 cask "google-drive"
+# Japanese input software
 cask "google-japanese-ime"
+# Grammarly for desktop
 cask "grammarly-desktop"
+# Genome browser
 cask "jbrowse"
+# Menu bar manager
 cask "jordanbaird-ice"
+# Keyboard customiser
 cask "karabiner-elements"
+# Blocks all Keyboard and TouchBar input
 cask "keyboardcleantool"
+# Free cross-platform office suite, fresh version
 cask "libreoffice"
+# Discover, download, and run local LLMs
 cask "lm-studio"
+# Open-source cross-platform alternative to AirDrop
 cask "localsend"
+# Provides updates to various Microsoft products
 cask "microsoft-auto-update"
+# Digital note taking app
 cask "microsoft-onenote"
+# Presentation software
 cask "microsoft-powerpoint"
+# Minimal installer for conda specific to conda-forge
 cask "miniforge"
+# GameStream client
+cask "moonlight"
+# Simple application that will prevent iTunes or Apple Music from launching
 cask "notunes"
+# Environment for statistical computing and graphics
 cask "r-app"
+# Imaging utility to install operating systems to a microSD card
 cask "raspberry-pi-imager"
+# Control your tools with a few keystrokes
 cask "raycast"
+# Data science software focusing on R and Python
 cask "rstudio"
+# Open source virtual/remote desktop application
 cask "rustdesk"
+# Tool to reverse the direction of scrolling
 cask "scroll-reverser"
+# Team communication and collaboration software
 cask "slack"
+# Music streaming service
 cask "spotify"
+# Video game digital distribution service
 cask "steam"
+# Tool to disable temporal dithering on Apple Silicon Macs
 cask "stillcolor"
+# VPN client for secure internet access and private browsing
 cask "surfshark"
+# Desktop client for Telegram messenger
 cask "telegram-desktop"
+# Customizable email client
 cask "thunderbird"
+# Open-source code editor
 cask "visual-studio-code"
+# Multimedia player
 cask "vlc"
+# Native desktop client for WhatsApp
 cask "whatsapp"
+# Open-source version of the X.Org X Window System
 cask "xquartz"
+# Video communication and virtual meeting platform
 cask "zoom"
+mas "Amphetamine", id: 937984704
+mas "Bitwarden", id: 1352778147
+mas "Goodnotes", id: 1444383602
+mas "Keynote", id: 409183694
+mas "LINE", id: 539883307
+mas "Microsoft Excel", id: 462058435
+mas "Microsoft Word", id: 462054704
+mas "MyWallpaper", id: 1552826194
+mas "ScreenNote", id: 1258500140
+mas "Steam Link", id: 1246969117
+mas "System Watcher", id: 1269106895
+mas "Tailscale", id: 1475387142
+mas "VirusBarrier Scanner", id: 1200445649
+mas "Wallpaper Play", id: 1638457121
+vscode "0h7z.vscode-julia-format"
+vscode "andenetalexander.vim-cheatsheet"
+vscode "anthropic.claude-code"
+vscode "astro-build.astro-vscode"
+vscode "bierner.gif-player"
+vscode "bierner.markdown-mermaid"
+vscode "bierner.markdown-preview-github-styles"
+vscode "bradlc.vscode-tailwindcss"
+vscode "cameronbieganek.julia-color-themes"
+vscode "charliermarsh.ruff"
+vscode "christian-kohler.path-intellisense"
+vscode "cschlosser.doxdocgen"
+vscode "dart-code.dart-code"
+vscode "dart-code.flutter"
+vscode "dee-catsey.coding-cat"
+vscode "docker.docker"
+vscode "donjayamanne.python-extension-pack"
+vscode "dunstontc.vscode-go-syntax"
+vscode "eamodio.gitlens"
+vscode "esbenp.prettier-vscode"
+vscode "evan-kolberg.desmos-graphing-calculator"
+vscode "formulahendry.code-runner"
+vscode "fortran-lang.linter-gfortran"
+vscode "github.remotehub"
+vscode "github.vscode-github-actions"
+vscode "google.colab"
+vscode "google.geminicodeassist"
+vscode "guidotapia2.unicode-math-vscode"
+vscode "h5web.vscode-h5web"
+vscode "hediet.vscode-drawio"
+vscode "ionutvmi.path-autocomplete"
+vscode "irvece.markdown-pdf-enhanced"
+vscode "james-yu.latex-workshop"
+vscode "janisdd.vscode-edit-csv"
+vscode "jishii1204.markdown-live-editor"
+vscode "jock.svg"
+vscode "julialang.language-julia"
+vscode "kevinrose.vsc-python-indent"
+vscode "leanprover.lean4"
+vscode "lirobi.phone-preview"
+vscode "mkvoya.eps-preview"
+vscode "mosapride.zenkaku"
+vscode "mr-konn.generic-input-method"
+vscode "ms-azuretools.vscode-containers"
+vscode "ms-azuretools.vscode-docker"
+vscode "ms-ceintl.vscode-language-pack-ja"
+vscode "ms-python.debugpy"
+vscode "ms-python.python"
+vscode "ms-python.vscode-python-envs"
+vscode "ms-toolsai.jupyter"
+vscode "ms-toolsai.jupyter-keymap"
+vscode "ms-toolsai.jupyter-renderers"
+vscode "ms-toolsai.vscode-jupyter-cell-tags"
+vscode "ms-toolsai.vscode-jupyter-slideshow"
+vscode "ms-vscode-remote.remote-containers"
+vscode "ms-vscode-remote.remote-ssh"
+vscode "ms-vscode-remote.remote-ssh-edit"
+vscode "ms-vscode-remote.remote-wsl"
+vscode "ms-vscode-remote.vscode-remote-extensionpack"
+vscode "ms-vscode.azure-repos"
+vscode "ms-vscode.cmake-tools"
+vscode "ms-vscode.cpp-devtools"
+vscode "ms-vscode.cpptools"
+vscode "ms-vscode.cpptools-extension-pack"
+vscode "ms-vscode.cpptools-themes"
+vscode "ms-vscode.live-server"
+vscode "ms-vscode.makefile-tools"
+vscode "ms-vscode.remote-explorer"
+vscode "ms-vscode.remote-repositories"
+vscode "ms-vscode.remote-server"
+vscode "mubashir-ali.bio-data-hub"
+vscode "mushan.vscode-paste-image"
+vscode "njpwerner.autodocstring"
+vscode "oderwat.indent-rainbow"
+vscode "oezeb.markdown-to-pdf"
+vscode "okanaslan.catreviews"
+vscode "openai.chatgpt"
+vscode "penrose.penrose-vs"
+vscode "percy.vscode-numpy-viewer"
+vscode "pixl-garden.bongocat"
+vscode "pkief.material-icon-theme"
+vscode "pomdtr.excalidraw-editor"
+vscode "qwtel.sqlite-viewer"
+vscode "shd101wyy.markdown-preview-enhanced"
+vscode "studykit.unicode-math"
+vscode "svelte.svelte-vscode"
+vscode "tamasfe.even-better-toml"
+vscode "tldraw-org.tldraw-vscode"
+vscode "tomoki1207.pdf"
+vscode "twxs.cmake"
+vscode "vintharas.learn-vim"
+vscode "vscode-icons-team.vscode-icons"
+vscode "vscodevim.vim"
+vscode "wholroyd.jinja"
+vscode "wolframresearch.wolfram"
+vscode "yzane.markdown-pdf"
+vscode "yzhang.markdown-all-in-one"
+npm "n"
