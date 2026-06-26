@@ -6,9 +6,11 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   pipewire \
   wireplumber \
   pipewire-pulse \
+  libpulse-dev \
   alsa-utils \
   bluez \
   bluetooth \
+  fzf \
   kmscon \
   locales \
   uim \

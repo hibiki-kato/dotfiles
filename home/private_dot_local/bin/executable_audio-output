@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat >&2 <<'EOF'
+usage:
+  audio-output          choose the default audio output with fzf
+  audio-output list     list selectable audio outputs
+  audio-output set ID   set a PipeWire node ID as default
+EOF
+}
+
+require() {
+  if ! command -v "$1" >/dev/null 2>&1; then
+    echo "audio-output: $1 not found" >&2
+    exit 127
+  fi
+}
+
+list_outputs() {
+  wpctl status --name | awk '
+    /^ ├─ Sinks:/ { section = "sinks"; next }
+    /^ ├─ Filters:/ { section = "filters"; next }
+    /^ └─ Streams:/ { section = ""; next }
+    section == "sinks" && match($0, /^[[:space:]│*]*([0-9]+)\. ([^[]+) \[vol:/, m) {
+      id = m[1]
+      name = m[2]
+      sub(/[[:space:]]+$/, "", name)
+      if (name !~ /^bluez_output\..*\.1$/) {
+        printf "%s\t%s\n", id, name
+      }
+    }
+    section == "filters" && match($0, /^[[:space:]│*]*([0-9]+)\. (bluez_output\.[^[]+) +\[Audio\/Sink\]/, m) {
+      printf "%s\t%s\n", m[1], m[2]
+    }
+  '
+}
+
+set_default() {
+  local id=$1
+  wpctl set-default "$id"
+  wpctl set-volume "$id" 60% 2>/dev/null || true
+}
+
+require wpctl
+
+case "${1:-}" in
+  -h|--help)
+    usage
+    exit 0
+    ;;
+  list)
+    list_outputs
+    ;;
+  set)
+    if [ "$#" -ne 2 ]; then
+      usage
+      exit 2
+    fi
+    set_default "$2"
+    ;;
+  "")
+    require fzf
+    choice=$(list_outputs | fzf --prompt='audio output> ' --with-nth=2..)
+    [ -n "$choice" ] || exit 0
+    set_default "${choice%%$'\t'*}"
+    ;;
+  *)
+    usage
+    exit 2
+    ;;
+esac

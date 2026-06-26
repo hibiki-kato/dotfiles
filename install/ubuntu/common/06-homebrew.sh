@@ -43,4 +43,5 @@ brew install -y \
   atuin \
   starship \
   glow \
-  tree-sitter-cli
+  tree-sitter-cli \
+  antigravity-cli

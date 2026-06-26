@@ -8,6 +8,10 @@
 # pager = ""
 # umask = "022"
 
+# Ignore patterns
+[ignore]
+patterns = [".DS_Store", "**/.DS_Store"]
+
 {{- if eq .chezmoi.os "darwin" }}
 
 # macOS: use VS Code as editor

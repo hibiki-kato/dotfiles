@@ -5,6 +5,7 @@ sudo install -d -m 755 /etc/kmscon
 cat <<'EOF' | sudo tee /etc/kmscon/kmscon.conf >/dev/null
 font-name=Noto Sans Mono CJK JP
 font-size=16
+mouse
 xkb-options=ctrl:nocaps
 EOF
 

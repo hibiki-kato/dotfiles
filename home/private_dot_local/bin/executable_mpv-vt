@@ -54,7 +54,6 @@ mpv_args=(
   --hwdec=no
   --keep-open=yes
   --image-display-duration=inf
-  --audio-device=pipewire/bluez_output.98:47:44:2A:61:59
 )
 
 if [ -n "${MPV_VT_LOG:-}" ]; then

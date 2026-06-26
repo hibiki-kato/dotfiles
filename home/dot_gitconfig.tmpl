@@ -1,8 +1,8 @@
 # Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
-{{ $ghPath := "/usr/bin/gh" -}}
-{{- if eq .chezmoi.os "darwin" -}}
-{{- $ghPath = "/opt/homebrew/bin/gh" -}}
-{{- end -}}
+{{ $ghPath := "/usr/bin/gh" }}
+{{ if eq .chezmoi.os "darwin" }}
+{{ $ghPath = "/opt/homebrew/bin/gh" }}
+{{ end }}
 [user]
 	name = hibiki-kato
 	email = katohibiki17@gmail.com
