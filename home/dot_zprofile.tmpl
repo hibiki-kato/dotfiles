@@ -32,6 +32,9 @@ fi
 {{ if eq $linuxProfile "server" -}}
 # TTY Japanese input
 if [ "$TERM" = "linux" ] && [ -z "${DISPLAY:-}" ] && [ -z "${UIM_FEP_STARTED:-}" ] && command -v uim-fep >/dev/null 2>&1; then
+    if [ "$COLORTERM" = "kmscon" ] || [ "$TERM_SESSION_TYPE" = "kms" ]; then
+        export TERM=xterm-256color
+    fi
     export UIM_FEP_STARTED=1
     exec uim-fep -u mozc
 fi
