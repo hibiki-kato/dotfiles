@@ -25,6 +25,8 @@ brew "cmake"
 brew "cocoapods"
 # Plays typewriter sounds every time you press a key
 brew "daktilo"
+# TIFF library and utilities
+brew "libtiff"
 # File comparison utilities
 brew "diffutils"
 # C++ template library for linear algebra
@@ -45,10 +47,6 @@ brew "fswatch"
 brew "mpfr"
 # GNU compiler collection
 brew "gcc"
-# TIFF library and utilities
-brew "libtiff"
-# Interact with Google Gemini AI models from the command-line
-brew "gemini-cli"
 # GFF/GTF format conversions, region filtering, FASTA sequence extraction
 brew "gffread"
 # GitHub command-line tool
@@ -117,8 +115,6 @@ brew "poppler"
 brew "pdfpc"
 # Python library for creating static, animated, and interactive visualizations
 brew "python-matplotlib"
-# Software environment for statistical computing
-brew "r", link: false
 # Rsync for cloud storage
 brew "rclone"
 # Search tool like grep and The Silver Searcher
@@ -141,6 +137,8 @@ brew "tree"
 brew "uv"
 # Internet file retriever
 brew "wget"
+# Feature-rich command-line audio/video downloader
+brew "yt-dlp"
 # General-purpose lossless data-compression library
 brew "zlib"
 # Fish-like fast/unobtrusive autosuggestions for zsh
@@ -153,6 +151,8 @@ cask "adobe-acrobat-reader"
 cask "adobe-creative-cloud"
 # Agent orchestration platform
 cask "antigravity"
+# Terminal interface for Antigravity agents
+cask "antigravity-cli"
 # Multi-track audio editor and recorder
 cask "audacity"
 # Tool to flash OS images to SD cards & USB drives
@@ -165,8 +165,6 @@ cask "brave-browser"
 cask "chatgpt"
 # OpenAI's official browser with ChatGPT built in
 cask "chatgpt-atlas"
-# Remotely access another computer through the Google Chrome browser
-cask "chrome-remote-desktop-host"
 # Recover lost data
 cask "cisdem-data-recovery"
 # Anthropic's official Claude AI desktop app
@@ -231,14 +229,10 @@ cask "miniforge"
 cask "moonlight"
 # Simple application that will prevent iTunes or Apple Music from launching
 cask "notunes"
-# Environment for statistical computing and graphics
-cask "r-app"
 # Imaging utility to install operating systems to a microSD card
 cask "raspberry-pi-imager"
 # Control your tools with a few keystrokes
 cask "raycast"
-# Data science software focusing on R and Python
-cask "rstudio"
 # Open source virtual/remote desktop application
 cask "rustdesk"
 # Tool to reverse the direction of scrolling
