@@ -17,6 +17,7 @@ fi
 classic_packages=(
   astral-uv
   yazi
+  nvim
 )
 
 for pkg in "${classic_packages[@]}"; do
