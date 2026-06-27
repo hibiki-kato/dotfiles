@@ -12,4 +12,5 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   redshift \
   ripgrep \
   aria2 \
-  flameshot
+  flameshot \
+  graphviz
