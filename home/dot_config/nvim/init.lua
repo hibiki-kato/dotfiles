@@ -1,57 +1,27 @@
--- ~/.config/nvim/init.lua
+-- This file simply bootstraps the installation of Lazy.nvim and then calls other files for execution
+-- This file doesn't necessarily need to be touched, BE CAUTIOUS editing this file and proceed at your own risk.
+local lazypath = vim.env.LAZY or vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
--- 基本オプション（最低限）
-vim.g.mapleader = " "
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.termguicolors = true
-vim.opt.clipboard = "unnamedplus"
-
--- 🎨 【ユーザビリティ】表示に関する設定
-vim.opt.autoindent = true     -- 自動インデントを有効にする
-vim.opt.hlsearch = true       -- 検索ヒット箇所をハイライトする
-
--- 📘 【その他】
-vim.opt.encoding = "utf-8"   -- エンコーディングをUTF-8に固定
-vim.opt.smartindent = true    -- スマートインデントを有効にする
-
--- ★ Insertモードで "jj" を ESC に
-vim.keymap.set("i", "jj", "<Esc>", { noremap = true })
-
--- lazy.nvim bootstrap（無ければ自動取得）
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath,
-  })
+if not (vim.env.LAZY or (vim.uv or vim.loop).fs_stat(lazypath)) then
+  -- stylua: ignore
+  local result = vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
+  if vim.v.shell_error ~= 0 then
+    -- stylua: ignore
+    vim.api.nvim_echo({ { ("Error cloning lazy.nvim:\n%s\n"):format(result), "ErrorMsg" }, { "Press any key to exit...", "MoreMsg" } }, true, {})
+    vim.fn.getchar()
+    vim.cmd.quit()
+  end
 end
+
 vim.opt.rtp:prepend(lazypath)
 
--- プラグイン読込
-require("lazy").setup("plugins")
+-- validate that lazy is available
+if not pcall(require, "lazy") then
+  -- stylua: ignore
+  vim.api.nvim_echo({ { ("Unable to load lazy from: %s\n"):format(lazypath), "ErrorMsg" }, { "Press any key to exit...", "MoreMsg" } }, true, {})
+  vim.fn.getchar()
+  vim.cmd.quit()
+end
 
--- LuaSnip の最低限キーマップ（Tabで展開/ジャンプ、Shift-Tabで逆ジャンプ）
-local ls = require("luasnip")
-vim.keymap.set({"i", "s"}, "<Tab>", function()
-  if ls.expand_or_jumpable() then
-    ls.expand_or_jump()
-  else
-    return "<Tab>"
-  end
-end, {expr=true, silent=true})
-
-vim.keymap.set({"i", "s"}, "<S-Tab>", function()
-  if ls.jumpable(-1) then
-    ls.jump(-1)
-  else
-    return "<S-Tab>"
-  end
-end, {expr=true, silent=true})
+require "lazy_setup"
+require "polish"

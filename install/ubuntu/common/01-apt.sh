@@ -32,11 +32,14 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   w3m \
   chafa \
   imagemagick \
-  neovim \
+  ninja-build \
+  gettext \
+  cmake \
   zsh \
   zsh-syntax-highlighting \
   zsh-autosuggestions \
-  btop
+  btop \
+  tree
 
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 
