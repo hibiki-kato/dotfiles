@@ -39,7 +39,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   zsh-syntax-highlighting \
   zsh-autosuggestions \
   btop \
-  tree
+  tree \
+  cups cups-client lpr
 
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 
