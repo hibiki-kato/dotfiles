@@ -15,6 +15,20 @@ return {
       virtual_text = true,
       underline = true,
     },
+    treesitter = {
+      highlight = true,
+      indent = true,
+      ensure_installed = {
+        "lua",
+        "vim",
+        "html",
+        "latex",
+        "markdown",
+        "markdown_inline",
+        "typst",
+        "yaml",
+      },
+    },
     options = {
       opt = {
         relativenumber = true,
