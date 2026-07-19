@@ -65,6 +65,8 @@ cat <<'EOF' | sudo tee /etc/systemd/system/triggerhappy.service.d/override.conf 
 [Service]
 ExecStart=
 ExecStart=/usr/sbin/thd --triggers /etc/triggerhappy/triggers.d/ --socket /run/thd.socket --deviceglob /dev/input/event*
+Restart=always
+RestartSec=3
 EOF
 
 sudo systemctl daemon-reload
