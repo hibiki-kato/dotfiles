@@ -2,3 +2,7 @@
 [buffer]
 images=true
 scripting = true
+
+[siteconf.narou]
+host = 'ncode\.syosetu\.com'
+styling = false
