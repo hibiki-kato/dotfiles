@@ -1,0 +1,52 @@
+[PlasmaTransientsConfig]
+PreloadWeight=42
+
+[PlasmaViews][Panel 130][Defaults]
+thickness=50
+
+[PlasmaViews][Panel 172]
+alignment=132
+panelVisibility=1
+
+[PlasmaViews][Panel 172][Defaults]
+minLength=566
+thickness=136
+
+[PlasmaViews][Panel 172][Horizontal2560]
+minLength=566
+
+[PlasmaViews][Panel 176][Defaults]
+thickness=50
+
+[PlasmaViews][Panel 2][Defaults]
+thickness=60
+
+[PlasmaViews][Panel 30]
+alignment=2
+
+[PlasmaViews][Panel 30][Defaults]
+thickness=60
+
+[PlasmaViews][Panel 56]
+alignment=132
+floating=1
+panelVisibility=1
+
+[PlasmaViews][Panel 56][Defaults]
+maxLength=1978
+minLength=136
+thickness=132
+
+[PlasmaViews][Panel 56][Horizontal2560]
+maxLength=1978
+minLength=136
+
+[PlasmaViews][Panel 66]
+alignment=132
+panelVisibility=2
+
+[PlasmaViews][Panel 66][Defaults]
+thickness=100
+
+[Updates]
+performed=/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/keyboardlayout_remove_shortcut.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/systemloadviewer_systemmonitor.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/move_desktop_layout_config.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/containmentactions_middlebutton.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/keyboardlayout_migrateiconsetting.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/maintain_existing_desktop_icon_sizes.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/digitalclock_rename_timezonedisplay_key.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/mediaframe_migrate_useBackground_setting.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/digitalclock_migrate_font_settings.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/unlock_widgets.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/no_middle_click_paste_on_panels.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/folderview_fix_recursive_screenmapping.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/klipper_clear_config.js
