@@ -17,6 +17,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   gnupg \
   snapd \
   tmux \
+  byobu \
   gpg \
   kmscon \
   fonts-noto-cjk \

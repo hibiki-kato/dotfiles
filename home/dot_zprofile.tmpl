@@ -43,4 +43,14 @@ fi
 if command -v setxkbmap >/dev/null 2>&1 && [ -n "${DISPLAY:-}" ]; then
     setxkbmap -option ctrl:nocaps || true
 fi
+
+{{ if eq $linuxProfile "desktop" -}}
+# Load /etc/profile.d settings (resolves missing Flatpak/Snap app icons in Plasma under zsh)
+emulate sh -c 'source /etc/profile'
+
+# Ensure Snap desktop applications are recognized by Linux Desktop Environments (Plasma, GNOME, etc.)
+if [ -d "/var/lib/snapd/desktop" ]; then
+    export XDG_DATA_DIRS="/var/lib/snapd/desktop:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+fi
+{{ end -}}
 {{ end -}}

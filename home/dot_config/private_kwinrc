@@ -21,7 +21,7 @@ Meta=org.kde.kglobalaccel,/component/kwin,org.kde.kglobalaccel.Component,invokeS
 [NightColor]
 Active=true
 Mode=Constant
-NightTemperature=2800
+NightTemperature=3000
 
 [Plugins]
 kwin4_effect_overviewEnabled=true

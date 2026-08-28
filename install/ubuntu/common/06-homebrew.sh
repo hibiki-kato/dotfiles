@@ -44,4 +44,5 @@ brew install -y \
   starship \
   glow \
   tree-sitter-cli \
-  antigravity-cli
+  antigravity-cli \
+  lazygit

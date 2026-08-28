@@ -137,7 +137,7 @@ ForegroundVisited=155,89,182
 
 [DirSelect Dialog]
 DirSelectDialog Size=1300,787
-History Items[$e]=file:$HOME/research,file:$HOME/Dropbox/Apps/Overleaf/Moonshot-SVD,file:$HOME/Dropbox/RA2022/kato/research/Projects/DNA,file:$HOME/Dropbox/RA2022/kato/research/Projects/DNA,file:$HOME/Dropbox/RA2022/kato/research/Projects/DNA,file:$HOME/Dropbox/RA2022/kato/research/Projects/DNA,file:$HOME/Dropbox/RA2022/kato/reference/pdf
+History Items[$e]=file:$HOME/Dropbox/RA2022/kato/research,file:$HOME/Dropbox/RA2022/kato,file:$HOME/research,file:$HOME/Dropbox/Apps/Overleaf/Moonshot-SVD,file:$HOME/Dropbox/RA2022/kato/research/Projects/DNA,file:$HOME/Dropbox/RA2022/kato/research/Projects/DNA,file:$HOME/Dropbox/RA2022/kato/research/Projects/DNA,file:$HOME/Dropbox/RA2022/kato/research/Projects/DNA,file:$HOME/Dropbox/RA2022/kato/reference/pdf
 
 [General]
 BrowserApplication=brave_brave.desktop
@@ -159,12 +159,13 @@ PathCombo Completionmode=5
 Show Bookmarks=false
 Show Full Path=false
 Show Inline Previews=true
+Show Preview=false
 Show Speedbar=true
 Show hidden files=false
-Sort by=Name
+Sort by=Date
 Sort directories first=true
 Sort hidden files last=false
-Sort reversed=false
+Sort reversed=true
 Speedbar Width=208
 View Style=DetailTree
 
