@@ -9,6 +9,13 @@ if grep -qiE 'microsoft|wsl' /proc/version 2>/dev/null; then
   exit 0
 fi
 
+# Kubuntu already has Plasma Wayland. Do not add the optional Cinnamon/Xorg
+# session intended for Ubuntu GNOME + Chrome Remote Desktop.
+if dpkg-query -W -f='${Status}\n' plasma-desktop 2>/dev/null | grep -q 'install ok installed'; then
+  echo "KDE Plasma detected; skipping optional Cinnamon/Xorg session setup."
+  exit 0
+fi
+
 sudo apt-get update -y || true
 
 # --- (A) Xorg + 基本ツール（CRDがX11セッション立てるのに必要） ---

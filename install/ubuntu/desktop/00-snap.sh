@@ -28,6 +28,7 @@ packages=(
   gimp
   obs-studio
   zoom-client
+  thunderbird
   dropboxignore
   localsend
   slack

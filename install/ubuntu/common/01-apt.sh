@@ -32,6 +32,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   zoxide \
   w3m \
   chafa \
+  rclone \
   imagemagick \
   ninja-build \
   gettext \

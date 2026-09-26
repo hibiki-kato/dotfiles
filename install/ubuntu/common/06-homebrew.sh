@@ -45,4 +45,6 @@ brew install -y \
   glow \
   tree-sitter-cli \
   antigravity-cli \
-  lazygit
+  lazygit \
+  gh \
+  gemini-cli

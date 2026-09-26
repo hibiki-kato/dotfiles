@@ -9,6 +9,7 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 packages=(
   com.rustdesk.RustDesk
   io.github.jeffshee.Hidamari
+  io.github.ilya_zlobintsev.LACT
 )
 
 for pkg in "${packages[@]}"; do

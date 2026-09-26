@@ -1,19 +1,15 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
-echo "OpenRGB installer is disabled; install via Flatpak if needed."
+app_id="org.openrgb.OpenRGB"
+if ! flatpak info "$app_id" >/dev/null 2>&1; then
+  flatpak install --system -y flathub "$app_id"
+fi
 
-# # OpenRGB was installed via flatpak.
-# # Download udev rules file
-# wget https://openrgb.org/releases/release_0.9/60-openrgb.rules
+sudo install -d -m 755 /etc/udev/rules.d
+flatpak run "$app_id" --print-udev-rules \
+  | sudo tee /etc/udev/rules.d/60-openrgb.rules >/dev/null
+sudo udevadm control --reload-rules
+sudo udevadm trigger
 
-# # Move udev rules file to udev rules directory
-# sudo mv 60-openrgb.rules /usr/lib/udev/rules.d
-
-# # Reload the rules
-# sudo udevadm control --reload-rules
-# sudo udevadm trigger
-
-# # Also, load script
-# systemctl --user daemon-reload
-# systemctl --user enable --now rgb-load.timer
+echo "OpenRGB installed; udev rules refreshed. Log out and back in if device access is denied."

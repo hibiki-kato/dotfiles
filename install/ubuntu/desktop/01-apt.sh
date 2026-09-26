@@ -13,4 +13,5 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   ripgrep \
   aria2 \
   flameshot \
+  gparted \
   graphviz
