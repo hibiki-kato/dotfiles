@@ -9,7 +9,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   copyq \
   vlc \
   ffmpeg \
-  redshift \
   ripgrep \
   aria2 \
   flameshot \

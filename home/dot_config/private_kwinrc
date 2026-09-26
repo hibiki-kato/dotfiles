@@ -15,9 +15,6 @@ LayoutMode=1
 [Effect-presentwindows]
 LayoutMode=1
 
-[ModifierOnlyShortcuts]
-Meta=org.kde.kglobalaccel,/component/kwin,org.kde.kglobalaccel.Component,invokeShortcut,Overview
-
 [NightColor]
 Active=true
 Mode=Constant

@@ -1,0 +1,2 @@
+# Plasma 5 applet/layout state is tied to the old desktop version and screen geometry.
+.config/plasma-org.kde.plasma.desktop-appletsrc

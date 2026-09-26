@@ -74,9 +74,11 @@ Raspberry Pi OS では `/etc/os-release` が `raspbian` / Raspberry Pi 系を返
 - [ ] KDE Connect、プリンター、Bluetooth 周辺: 必要な機器と用途を新環境で確認する。プリンター用スクリプトは `install/ubuntu/server/printer.sh` にあり、desktop 自動実行には含まれない。
 - [ ] LACT 初回起動: Flatpak は自動導入する。GPU 制御を使う場合は初回起動時に `lactd` system daemon のセットアップを許可し、動作を確認する。
 
+KDE の設定を Kubuntu へ引き継ぐ手順は [KDE.md](KDE.md) を参照。KDE ではモニターの色温度に KWin Night Color を使うため、Redshift は導入しない。
+
 ### 既存スクリプトで自動導入される主なソフト
 
-- APT: C/C++/LLVM/OpenMPI 開発環境、zsh と基本 CLI、rclone、CopyQ、VLC、Flameshot、Stacer、Redshift、GParted、Graphviz、Fcitx5-Mozc、TeX Live。
+- APT: C/C++/LLVM/OpenMPI 開発環境、zsh と基本 CLI、rclone、CopyQ、VLC、Flameshot、Stacer、GParted、Graphviz、Fcitx5-Mozc、TeX Live。
 - Snap: Brave、Zotero、ChatGPT、Bitwarden と CLI、Surfshark、Steam、Discord、Docker、Spotify、Mission Center、GIMP、OBS、Zoom、Thunderbird、DropboxIgnore、LocalSend、Slack、Draw.io、Neovim、Yazi、uv。
 - Flatpak: RustDesk、Hidamari、OpenRGB、LACT。
 - Linuxbrew: atuin、starship、glow、lazygit、tree-sitter-cli、gh、Gemini CLI、zsh 補助プラグイン、Antigravity CLI。
