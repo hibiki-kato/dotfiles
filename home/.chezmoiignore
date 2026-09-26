@@ -1,2 +1,52 @@
+# Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
+.DS_Store
+.config/nvim/lazy-lock.json
+
+{{- $isDarwin := eq .chezmoi.os "darwin" }}
+{{- $isLinux := eq .chezmoi.os "linux" }}
+{{- $linuxProfile := "desktop" }}
+{{- if $isLinux }}
+  {{- $osID := .chezmoi.osRelease.id }}
+  {{- $osName := "" }}
+  {{- $osPrettyName := "" }}
+  {{- if hasKey .chezmoi.osRelease "name" }}
+    {{- $osName = .chezmoi.osRelease.name }}
+  {{- end }}
+  {{- if hasKey .chezmoi.osRelease "prettyName" }}
+    {{- $osPrettyName = .chezmoi.osRelease.prettyName }}
+  {{- end }}
+  {{- $isRaspberryPiOS := or (eq $osID "raspbian") (contains "raspberry" (lower $osName)) (contains "raspberry" (lower $osPrettyName)) }}
+  {{- if $isRaspberryPiOS }}
+    {{- $linuxProfile = "raspberrypi" }}
+  {{- else }}
+    {{- $linuxProfile = output "sh" "-c" "if command -v dpkg-query >/dev/null 2>&1 && dpkg-query -W -f='${Status}\\n' ubuntu-desktop ubuntu-desktop-minimal xubuntu-desktop kubuntu-desktop lubuntu-desktop ubuntu-mate-desktop 2>/dev/null | grep -q 'install ok installed'; then printf desktop; elif command -v systemctl >/dev/null 2>&1 && [ \"$(systemctl get-default 2>/dev/null)\" = graphical.target ] && systemctl list-unit-files display-manager.service 2>/dev/null | grep -q display-manager.service; then printf desktop; else printf server; fi" }}
+  {{- end }}
+{{- end }}
+
+{{ if not $isDarwin -}}
+.Brewfile
+.config/karabiner/**
+{{ end -}}
+
+{{ if or $isDarwin (eq $linuxProfile "server") -}}
+.config/autostart/**
+.config/systemd/user/rgb-load.service
+.config/systemd/user/rgb-load.timer
+.local/bin/rgb_load_once.sh
+.xinputrc
+.xprofile
+{{ end -}}
+
+{{ if ne $linuxProfile "server" -}}
+.local/bin/mpv-vt
+{{ end -}}
+
+{{ if eq $linuxProfile "raspberrypi" -}}
+.config/autostart/**
+.config/systemd/user/rgb-load.service
+.config/systemd/user/rgb-load.timer
+.local/bin/rgb_load_once.sh
+{{ end -}}
+
 # Plasma 5 applet/layout state is tied to the old desktop version and screen geometry.
 .config/plasma-org.kde.plasma.desktop-appletsrc
