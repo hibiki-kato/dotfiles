@@ -19,7 +19,4 @@ unset __conda_setup
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/hibiki/.lmstudio/bin"
 {{ else if eq .chezmoi.os "linux" -}}
-if command -v setxkbmap >/dev/null 2>&1 && [ -n "${DISPLAY:-}" ]; then
-    setxkbmap -option ctrl:nocaps || true
-fi
 {{ end -}}
