@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+# Managed by chezmoi. Do not edit directly. Update via chezmoi.
+set -euo pipefail
+
+# The installer only adds dolphin-plugins when Dolphin exists. Enable its
+# Dropbox VCS plugin without replacing other enabled VCS plugins (e.g. Git).
+if ! command -v dolphin >/dev/null 2>&1; then
+  echo "Dolphin not installed; skipping Dropbox Dolphin plugin configuration."
+  exit 0
+fi
+
+if command -v kwriteconfig6 >/dev/null 2>&1 && command -v kreadconfig6 >/dev/null 2>&1; then
+  writer=kwriteconfig6
+  reader=kreadconfig6
+elif command -v kwriteconfig5 >/dev/null 2>&1 && command -v kreadconfig5 >/dev/null 2>&1; then
+  writer=kwriteconfig5
+  reader=kreadconfig5
+else
+  echo "KConfig CLI not found; enable Dropbox in Dolphin's Context Menu settings."
+  exit 0
+fi
+
+enabled="$($reader --file dolphinrc --group VersionControl --key enabledPlugins --type stringList 2>/dev/null || true)"
+case ",$enabled," in
+  *,Dropbox,*)
+    echo "Dolphin Dropbox plugin is already enabled."
+    exit 0
+    ;;
+esac
+
+if [[ -n "$enabled" ]]; then
+  enabled="$enabled,Dropbox"
+else
+  enabled=Dropbox
+fi
+
+"$writer" --file dolphinrc --group VersionControl --key enabledPlugins --type stringList "$enabled"
+echo "Enabled the Dolphin Dropbox plugin; restart Dolphin if it is already running."

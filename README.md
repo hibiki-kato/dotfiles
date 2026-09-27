@@ -50,7 +50,8 @@ Raspberry Pi OS では `/etc/os-release` が `raspbian` / Raspberry Pi 系を返
 - [ ] Warp: `install/ubuntu/desktop/06-warp.sh` で導入。Wayland ネイティブ動作を設定し、描画・ホットキーを確認する。
 - [ ] Espanso: `install/ubuntu/desktop/10-espanso.sh` で Wayland 用 DEB を導入。必要な capability を設定し、Wayland で展開を確認する。Wayland 対応は実験的。
 - [ ] 日本語入力とキーボード: `install/ubuntu/desktop/04-input.sh` が Fcitx5-Mozc と Plasma 用設定モジュールを導入する。ログアウト/ログイン後、システム設定の「キーボード > 仮想キーボード」で Fcitx5 を選択し、Fcitx5 設定で Ctrl+Space を入力メソッドのオン/オフに割り当てる。Caps Lock→左 Ctrl は「システム設定 > キーボード > 詳細設定 > Ctrl の位置」で設定する。
-- [ ] Dropbox: `install/ubuntu/desktop/03-dropbox.sh` で導入後にサインインし、同期完了を確認する。
+- [ ] Dropbox: `install/ubuntu/desktop/03-dropbox.sh` が公式 DEB と Ubuntu の Ayatana AppIndicator 互換ライブラリを導入する。導入後にサインインし、トレイアイコンと同期を確認する。手動 symlink は作らない。
+- [ ] Dolphin + Dropbox: Dolphin がある場合 `install/ubuntu/desktop/15-dolphin-plugins.sh` が `dolphin-plugins` を導入し、chezmoi の run-once script が既存の有効なプラグインを保持して Dropbox を有効にする。Dolphin を既に開いている場合は再起動する。設定は「設定 > Dolphin の設定 > コンテキストメニュー」で確認できる。同期状態アイコンと Dropbox 操作メニューには公式 Dropbox クライアントの起動が必要。
 
 ### 現在の環境にはあるが、自動インストールに含まれていないもの
 
@@ -78,7 +79,7 @@ KDE の設定を Kubuntu へ引き継ぐ手順は [KDE.md](KDE.md) を参照。K
 
 ### 既存スクリプトで自動導入される主なソフト
 
-- APT: C/C++/LLVM/OpenMPI 開発環境、zsh と基本 CLI、rclone、CopyQ、VLC、Flameshot、Stacer、GParted、Graphviz、Fcitx5-Mozc、TeX Live。
+- APT: C/C++/LLVM/OpenMPI 開発環境、zsh と基本 CLI、rclone、CopyQ、VLC、Flameshot、Stacer、GParted、Graphviz、Fcitx5-Mozc、TeX Live。Dolphin がある場合は `dolphin-plugins` も導入。
 - Snap: Brave、Zotero、ChatGPT、Bitwarden と CLI、Surfshark、Steam、Discord、Docker、Spotify、Mission Center、GIMP、OBS、Zoom、Thunderbird、DropboxIgnore、LocalSend、Slack、Draw.io、Neovim、Yazi、uv。
 - Flatpak: RustDesk、Hidamari、OpenRGB、LACT。
 - Linuxbrew: atuin、starship、glow、lazygit、tree-sitter-cli、gh、Gemini CLI、zsh 補助プラグイン、Antigravity CLI。

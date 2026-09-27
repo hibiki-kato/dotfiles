@@ -10,6 +10,12 @@ fi
 DEB_URL="https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2025.05.20_amd64.deb"
 DEB_FILE="/tmp/dropbox.deb"
 
+# Dropbox's full tray integration uses the AppIndicator library. Ubuntu's
+# Ayatana package provides the legacy libappindicator3.so.1 ABI that Dropbox
+# requests; avoid apt selecting the conflicting legacy package or making a
+# system-wide symlink by hand.
+sudo apt-get install -y libayatana-appindicator3-1
+
 # Download Dropbox .deb
 wget -O "$DEB_FILE" "$DEB_URL"
 
