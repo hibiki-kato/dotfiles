@@ -39,6 +39,13 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 [Tiling][d765e729-4ae6-583c-b1d6-64f14312bfea]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
+[Wayland]
+InputMethod=/usr/share/applications/org.fcitx.Fcitx5.desktop
+VirtualKeyboardEnabled=true
+
+[Xwayland]
+Scale=1.25
+
 [org.kde.kdecoration2]
 ButtonsOnLeft=XIA
 ButtonsOnRight=H
