@@ -44,7 +44,7 @@ Raspberry Pi OS では `/etc/os-release` が `raspbian` / Raspberry Pi 系を返
 
 ### Kubuntu / Wayland 移行時に確認
 
-- [ ] Visual Studio Code: 現在は Microsoft APT リポジトリから手動導入。新マシンでも公式 DEB / APT を導入し、Settings Sync にサインインする。
+- [ ] Visual Studio Code: `install/ubuntu/desktop/07-vscode.sh` が Microsoft 公式 APT リポジトリから導入する。Settings Sync にサインインする。
 - [ ] Sunshine: `install/ubuntu/desktop/14-sunshine.sh` が公式 Cloudsmith stable リポジトリから導入する。Wayland のキャプチャ権限と Moonlight 接続を確認する。
 - [ ] OpenRGB: `install/ubuntu/desktop/11-openrgb.sh` が公式 Flatpak と公式 udev ルールを設定する。対応デバイスの検出と制御を確認する。
 - [ ] Warp: `install/ubuntu/desktop/06-warp.sh` で導入。Wayland ネイティブ動作を設定し、描画・ホットキーを確認する。
@@ -57,7 +57,6 @@ Raspberry Pi OS では `/etc/os-release` が `raspbian` / Raspberry Pi 系を返
 
 必要なものだけ新環境へ入れ直す。Ubuntu/Kubuntu 標準のデスクトップ部品や依存パッケージは含めない。
 
-- [ ] Visual Studio Code: Microsoft APT リポジトリから導入。Settings Sync にサインインする。
 - [ ] ChatGPT DEB: 現環境には `chatgpt` DEB がある。新環境では自動導入対象の ChatGPT Snap を使うか、DEB を別途導入するか選ぶ。
 - [ ] `htop`、`nvtop`、`radeontop`、`yt-dlp`、`sshpass`、`vulkan-tools`: APT から手動導入。必要なものだけ選ぶ。
 - [ ] `wolframscript` / Wolfram: Wolfram アカウント、ライセンス、インストーラーを用意して手動導入。
@@ -83,7 +82,7 @@ KDE の設定を Kubuntu へ引き継ぐ手順は [KDE.md](KDE.md) を参照。K
 - Snap: Brave、Zotero、ChatGPT、Bitwarden と CLI、Surfshark、Steam、Discord、Docker、Spotify、Mission Center、GIMP、OBS、Zoom、Thunderbird、DropboxIgnore、LocalSend、Slack、Draw.io、Neovim、Yazi、uv。
 - Flatpak: RustDesk、Hidamari、OpenRGB、LACT。
 - Linuxbrew: atuin、starship、glow、lazygit、tree-sitter-cli、gh、Gemini CLI、zsh 補助プラグイン、Antigravity CLI。
-- 個別 installer: Dropbox、Warp、Espanso Wayland 版、Sunshine stable、Claude Code、Codex、Miniforge、Juliaup、Rust、Ollama、Nextflow、Tailscale。NVIDIA driver/CUDA は NVIDIA GPU が検出された場合に driver profile が導入する。
+- 個別 installer: Dropbox、VS Code、Warp、Espanso Wayland 版、Sunshine stable、Claude Code、Codex、Miniforge、Juliaup、Rust、Ollama、Nextflow、Tailscale。NVIDIA driver/CUDA は NVIDIA GPU が検出された場合に driver profile が導入する。
 
 Docker は `install/ubuntu/desktop/00-snap.sh` の `docker` Snap で導入する。Docker 公式 APT リポジトリ版ではない。GitHub CLI と Gemini CLI は Linuxbrew、GParted は APT、Thunderbird は Snap、LACT は Flatpak で導入する。
 
