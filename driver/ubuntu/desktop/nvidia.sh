@@ -151,4 +151,19 @@ else
   echo "[skip] INSTALL_CUDA=false; skipping CUDA Toolkit."
 fi
 
+# Flatpak apps need a GL runtime matching the host driver version (else GPU video renders green)
+install_flatpak_nvidia_gl() {
+  command -v flatpak >/dev/null 2>&1 || return 0
+  command -v nvidia-smi >/dev/null 2>&1 || return 0
+  local ver
+  ver="$(nvidia-smi --query-gpu=driver_version --format=csv,noheader 2>/dev/null | head -n1 | tr '.' '-')"
+  [[ -n "$ver" ]] || return 0
+  echo "[info] Installing Flatpak NVIDIA GL runtime for driver ${ver}..."
+  flatpak install -y --system flathub \
+    "org.freedesktop.Platform.GL.nvidia-${ver}" \
+    "org.freedesktop.Platform.GL32.nvidia-${ver}" ||
+    echo "[warn] Flatpak NVIDIA GL runtime install failed (is flathub configured?)." >&2
+}
+install_flatpak_nvidia_gl
+
 echo "[done] Driver/CUDA setup complete. A reboot may be required for the driver to load."
