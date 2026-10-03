@@ -135,6 +135,9 @@ install_cuda_from_ubuntu_repo() {
   DEBIAN_FRONTEND=noninteractive apt-get install -y nvidia-cuda-toolkit
 }
 
+# sudo's secure_path may omit /usr/local/cuda/bin, so add it before probing nvcc
+export PATH="$PATH:/usr/local/cuda/bin"
+
 if [[ "${INSTALL_CUDA}" == true ]]; then
   if command -v nvcc >/dev/null 2>&1; then
     echo "[ok] CUDA already installed (nvcc found); skipping CUDA install."
