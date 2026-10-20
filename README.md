@@ -60,7 +60,7 @@ profile（`macos` / `desktop` / `server` / `raspberrypi`）の判定は `home/.c
 必要なものだけ新環境へ入れ直す。Ubuntu/Kubuntu 標準のデスクトップ部品や依存パッケージは含めない。
 
 - [ ] ChatGPT DEB: 現環境には `chatgpt` DEB がある。新環境では自動導入対象の ChatGPT Snap を使うか、DEB を別途導入するか選ぶ。
-- [ ] `htop`、`nvtop`、`radeontop`、`yt-dlp`、`sshpass`、`vulkan-tools`: APT から手動導入。必要なものだけ選ぶ。
+- [ ] `htop`、`nvtop`、`radeontop`、`yt-dlp`、`vulkan-tools`: APT から手動導入。必要なものだけ選ぶ。
 - [ ] `wolframscript` / Wolfram: Wolfram アカウント、ライセンス、インストーラーを用意して手動導入。
 - [ ] Go と `whatscli`: Linuxbrew に入っているが、デスクトップ用 Homebrew リストにはない。必要なら `brew install go whatscli`。
 - [ ] OpenClaw: npm グローバル導入。現行の chezmoi スクリプトには導入処理なし。

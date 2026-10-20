@@ -8,6 +8,9 @@ if apt-cache policy nodejs 2>/dev/null | grep -q 'deb.nodesource.com'; then
   sudo DEBIAN_FRONTEND=noninteractive apt-get remove -y npm || true
 fi
 
+# Preseed Kerberos default realm so krb5-user installs non-interactively
+echo 'krb5-config krb5-config/default_realm string UMD.EDU' | sudo debconf-set-selections
+
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   build-essential \
   ca-certificates \
@@ -23,6 +26,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   fonts-noto-cjk \
   lsb-release \
   openssh-client \
+  sshpass \
+  krb5-user \
   software-properties-common \
   trash-cli \
   ripgrep \
