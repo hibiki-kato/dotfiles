@@ -5,13 +5,13 @@ nextflow_bin="$HOME/.local/bin/nextflow"
 
 if command -v nextflow >/dev/null 2>&1; then
   echo "Nextflow already installed, skipping."
-  nextflow --version || true
+  nextflow -version || true
   exit 0
 fi
 
 if [ -x "$nextflow_bin" ]; then
   echo "Nextflow already installed, skipping."
-  "$nextflow_bin" --version || true
+  "$nextflow_bin" -version || true
   exit 0
 fi
 

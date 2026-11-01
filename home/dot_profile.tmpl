@@ -5,14 +5,18 @@
 export PATH="$PATH:/Users/hibiki/.lmstudio/bin"
 {{ else if eq .chezmoi.os "linux" -}}
 # >>> juliaup initialize >>>
+
 # !! Contents within this block are managed by juliaup !!
+
 case ":$PATH:" in
-    *:/home/hibiki/.juliaup/bin:*)
+    *:"${HOME}/.juliaup/bin":*)
         ;;
+
     *)
-        export PATH=/home/hibiki/.juliaup/bin${PATH:+:${PATH}}
+        export PATH="${HOME}/.juliaup/bin"${PATH:+:${PATH}}
         ;;
 esac
+
 # <<< juliaup initialize <<<
 [ -r "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 {{ end -}}

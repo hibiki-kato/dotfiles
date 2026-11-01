@@ -1,4 +1,3 @@
-# Managed by chezmoi. Do not edit directly. Update via chezmoi, using OS/host-specific partitioning when needed.
 [Desktop Entry]
 Name=Dropbox
 GenericName=File Synchronizer
@@ -10,4 +9,3 @@ Icon=dropbox
 Categories=Network;FileTransfer;
 Keywords=file;synchronization;sharing;collaboration;cloud;storage;backup;
 StartupNotify=false
-Hidden=false

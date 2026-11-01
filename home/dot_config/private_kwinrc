@@ -9,8 +9,14 @@ Id_1=e2aa71ec-037c-4288-9e5d-e6ae0f18f1eb
 Number=1
 Rows=1
 
+[EdgeBarrier]
+EdgeBarrier=0
+
 [Effect-desktopgrid]
 LayoutMode=1
+
+[Effect-overview]
+BorderActivate=9
 
 [Effect-presentwindows]
 LayoutMode=1
@@ -18,17 +24,15 @@ LayoutMode=1
 [NightColor]
 Active=true
 Mode=Constant
-NightTemperature=3000
+NightTemperature=2100
 
 [Plugins]
+cubeEnabled=true
 kwin4_effect_overviewEnabled=true
 
 [TabBox]
 ApplicationsMode=1
 LayoutName=MediumRounded
-
-[Tiling]
-padding=4
 
 [Tiling][4521904c-17de-5ae7-a13a-d8c5bf8556c3]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
@@ -39,9 +43,23 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 [Tiling][d765e729-4ae6-583c-b1d6-64f14312bfea]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
+[Tiling][e2aa71ec-037c-4288-9e5d-e6ae0f18f1eb][8fc2daf7-e40f-4e8a-8800-f119c22504b9]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][e2aa71ec-037c-4288-9e5d-e6ae0f18f1eb][e55cce48-e803-483f-ac64-51be56c3a635]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
 [Wayland]
 InputMethod=/usr/share/applications/org.fcitx.Fcitx5.desktop
 VirtualKeyboardEnabled=true
+
+[Windows]
+ElectricBorderCooldown=100
+ElectricBorderDelay=0
+ElectricBorderMaximize=false
+ElectricBorderTiling=false
 
 [Xwayland]
 Scale=1.25
