@@ -1,5 +1,6 @@
 source $BYOBU_PREFIX/share/byobu/profiles/tmux
-{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") -}}
+{{- $profile := includeTemplate "profile" . | trim }}
+{{ if or (eq $profile "desktop") (eq $profile "server") -}}
 # Disable screensaver on SSH, run normally on local (idle 600s)
 if-shell 'test -n "$SSH_CONNECTION"' 'set -g lock-after-time 0' 'set -g lock-after-time 600'
 set -g lock-command "~/.local/bin/pipes.sh"

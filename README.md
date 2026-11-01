@@ -38,6 +38,8 @@ chezmoi init --apply hibiki-kato
 
 Raspberry Pi OS では `/etc/os-release` が `raspbian` / Raspberry Pi 系を返す場合に `raspberrypi` profile が選ばれる。Raspberry Pi 上でも Ubuntu の場合は Ubuntu として扱い、GUI 環境の有無で `desktop` / `server` を自動判定して `common` と該当プロファイルを実行する。
 
+profile（`macos` / `desktop` / `server` / `raspberrypi`）の判定は `home/.chezmoitemplates/profile` に集約しており、テンプレートからは `{{- $profile := includeTemplate "profile" . | trim }}` で参照する。`CHEZMOI_INSTALL_PROFILE=server chezmoi apply` のように環境変数で上書きできる。
+
 ## 手動インストール・初回設定チェックリスト
 
 `chezmoi init --apply` は `install/` 配下のスクリプトで多くのソフトを導入する。手動インストールやログイン、ハードウェア固有の作業が残ったら、ここに追加する。
